@@ -31,6 +31,9 @@ public class AlumnoClass {
         this.PromGral = PromGral;
     }
 
+    public AlumnoClass() {
+    }   
+
     public int getNoControl() {
         return NoControl;
     }
