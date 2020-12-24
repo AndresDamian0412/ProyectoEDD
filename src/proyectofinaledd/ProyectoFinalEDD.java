@@ -17,6 +17,7 @@ public class ProyectoFinalEDD {
     public static void main(String[] args) {
         // TODO code application logic here
         System.out.println("Hola marrrrrraanos");
+        System.out.println("Achis");
     }
     
 }
