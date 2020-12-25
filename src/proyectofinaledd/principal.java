@@ -21,6 +21,13 @@ public class principal {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        String a = "hola";
+        String b = "adios";
+        String c = "Hola";
+        
+        int aa = a.compareTo(a), ab = a.compareTo(c), ac = a.compareToIgnoreCase(c);
+        System.out.println(aa + " " + ab + " " + ac);
 
         //Se pide el tamaño del arreglo [Esto lo hice de forma temporal por si no habia otra manera
         //de fijar el tamaño del array de objetos]
@@ -55,7 +62,7 @@ public class principal {
         
         System.out.println("Ingrese una opcion: ");
         int op = Integer.parseInt(scanner.nextLine());
-
+        
         switch (op) {
             case 1: {
                 System.out.println("La lista original de alumnos ordenados por apellido es: ");
@@ -68,8 +75,17 @@ public class principal {
                 }
                 break;
             }
+            
+            
             case 2: {
-
+                System.out.println("Ingrese carrera: ");
+                String carrera = scanner.nextLine();
+                System.out.println("========Alumnos de " + carrera + "========");
+                for (AlumnoClass alumno : alumnos) {
+                    if(carrera.compareToIgnoreCase(alumno.getCarrera()) == 0){
+                        System.out.println(alumno.getApPat() + " " + alumno.getApMat() + " " + alumno.getNombres());
+                    }
+                }
                 break;
             }
             case 3: {
