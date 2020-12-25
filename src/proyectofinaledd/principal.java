@@ -40,7 +40,7 @@ public class principal {
     }
 
     public static void Menu() {
-        int op = 0;
+
         System.out.println("=====SISTEMA DE INFORMACIÓN DE ALUMNOS NIVEL MEDIO SUPERIOR=====");
         System.out.println("Seleccione una de las siguienes opciones");
         System.out.println("1) Listado de alumnos");
@@ -52,12 +52,20 @@ public class principal {
         System.out.println("7) Alumnos con el primedio más alto");
         System.out.println("8) Alumnos candidatos a beca");
         System.out.println("9) Salir");
+        
+        System.out.println("Ingrese una opcion: ");
+        int op = Integer.parseInt(scanner.nextLine());
 
         switch (op) {
             case 1: {
                 System.out.println("La lista original de alumnos ordenados por apellido es: ");
-                OrdenaAlumnosApe(alumnos,0,(alumnos.length-1));//ordena los objetos alumno por apellido paterno
-                //sigue mostrarlos
+                OrdenaAlumnosApe(alumnos, 0, (alumnos.length - 1));//ordena los objetos alumno por apellido paterno
+                //sigue mostrarlos // Ya los muestra ;) Pero falta darle forma, es temporal la muestra de datos
+                for (AlumnoClass alumno : alumnos) {
+                    System.out.println(alumno.getNombres() + " " + alumno.getApPat() + " " + alumno.getApMat()
+                    + " " + alumno.getNoControl() + " " + alumno.getCarrera() + " " + alumno.getSemestre() +
+                            " " + alumno.getPromGral());
+                }
                 break;
             }
             case 2: {
