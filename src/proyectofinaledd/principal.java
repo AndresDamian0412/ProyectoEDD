@@ -16,27 +16,7 @@ public class principal {
     static Scanner scanner = new Scanner(System.in);
     //Este es el arreglo de objetos sin tamaño
     static AlumnoClass alumnos[];
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-
-        //Se pide el tamaño del arreglo [Esto lo hice de forma temporal por si no habia otra manera
-        //de fijar el tamaño del array de objetos]
-        System.out.println("Ingrese tamaño del arreglo: ");
-        int tam = Integer.parseInt(scanner.nextLine());
-        //Este es el tamaño del arreglo con el tamaño pasado por teclado
-        alumnos = new AlumnoClass[tam];
-        int incremento = 0; //Inicio una variable que servirá como contador de las vueltas en cada registro
-        //Aqui se realiza el ciclo de los registros, se detiene cuando la variable anterior
-        //es igual al tamaño del arreglo de objetos pasado por teclado
-        while (incremento != tam) {
-            GuardarDatos(incremento);//Pasamos por parametro el valor de la variable que incrementa en cada vuelta
-            incremento++;
-        }
-        Menu();
-    }
+    static AlumnoClass alumnosBaja[]; //arreglo que contiene los alumnos por darse de baja
 
     public static void Menu() {
 
@@ -67,7 +47,6 @@ public class principal {
                 }
                 break;
             }
-            
             
             case 2: {
                 System.out.println("Ingrese carrera: ");
@@ -180,12 +159,46 @@ public class principal {
             OrdenaAlumnosNumC(arreglo, j + 1, der);      // ordenamos subarray derecho
         }
     }
+    
+    //Ordena los alumnos por cantidad de materias en especial mediante quicksort
+    //Se usa este metodo para el inciso C
+    public static void OrdenaAlumnosMatEsp(AlumnoClass[] arreglo, int izq, int der){
+        AlumnoClass pivote = arreglo[izq]; // tomamos primer elemento como pivote
+        int i = izq;         // i realiza la búsqueda de izquierda a derecha
+        int j = der;         // j realiza la búsqueda de derecha a izquierda
+        AlumnoClass aux;
+
+        while (i < j) {                          // mientras no se crucen las búsquedas                                   
+            while (arreglo[i].getContEsp() <= pivote.getContEsp() && i < j) {
+                i++; // busca elemento mayor que pivote
+            }
+            while (arreglo[j].getContEsp() > pivote.getContEsp()) {
+                j--;           // busca elemento menor que pivote
+            }
+            if (i < j) {                        // si no se han cruzado                      
+                aux = arreglo[i];                      // los intercambia
+                arreglo[i] = arreglo[j];
+                arreglo[j] = aux;
+            }
+        }
+
+        arreglo[izq] = arreglo[j];      // se coloca el pivote en su lugar de forma que tendremos                                    
+        arreglo[j] = pivote;      // los menores a su izquierda y los mayores a su derecha
+
+        if (izq < j - 1) {
+            OrdenaAlumnosNumC(arreglo, izq, j - 1);          // ordenamos subarray izquierdo
+        }
+        if (j + 1 < der) {
+            OrdenaAlumnosNumC(arreglo, j + 1, der);      // ordenamos subarray derecho
+        }
+    }
 
     //Aqui esta el metodo que pide los registros de los alumnos y lo almacena en el arreglo de objetos
     public static void GuardarDatos(int incremento) {
         String materias[] = new String[6];
         int Calif[] = new int[6];
         int Status[] = new int[6];
+        int ContEsp=0; //Contador que nos dice cuantas materias en especial tiene "x" alumno
 
         //Pide los datos
         System.out.println("Ingrese numero de control: ");
@@ -215,6 +228,8 @@ public class principal {
         for (int i = 0; i < 6; i++) {
             System.out.println("Ingrese status de materia [" + (i + 1) + "] :");
             Status[i] = Integer.parseInt(scanner.nextLine());
+            if(Status[i]==3)
+                ContEsp++;   //Si la materia esta en especial, el contador se incrementa
         }
         //Calculamos promedio en base al arreglo de calificaciones
         int x = 0;
@@ -224,6 +239,53 @@ public class principal {
         int Prom = x / 6;
         //Se guardan los datos en el arreglo de objetos, la posicion depende del valor que se le pasa
         //por parametro
-        alumnos[incremento] = new AlumnoClass(nControl, Nombre, ApPat, ApMat, Semestre, Carrera, materias, Calif, Status, Prom);
+        alumnos[incremento] = new AlumnoClass(nControl, Nombre, ApPat, ApMat, Semestre, Carrera, materias, Calif, Status, Prom,ContEsp);
+    }
+    
+    //metodo de búsqueda binaria, **********falta acoplar a nuestro proyecto*********
+    public static int binarySearch(int[] array, int minLimit, int maxLimit, int value) {
+        if (maxLimit >= 0 && array[minLimit] <= value && array[maxLimit] >= value) {
+            int mid = (minLimit+ maxLimit)/2;
+            System.out.println(String.format("Límite inferior %d límite superior %d valor en el arreglo %d valor a buscar %d", minLimit,maxLimit,array[mid],value));
+            if (array[mid] == value) {
+                return mid;
+            } else if (array[mid] < value){
+                return binarySearch(array, mid + 1, maxLimit, value);
+            }
+            return binarySearch(array, minLimit, mid - 1, value);
+        }
+        return -1;
+    }
+    
+    public static AlumnoClass[] eliminaElemento(AlumnoClass[] arreglo, int posicion){
+        AlumnoClass[] aux = new AlumnoClass[arreglo.length-1];
+        for (int i = 0; i < arreglo.length; i++) {
+            if(i!=posicion){                //éste método únicamente nos sirve para eliminar
+                aux[i]= arreglo[i];         // los alumnos reprobados que vayamos pasando al arreglo
+            }
+        }
+        return aux;
+    }
+    
+    public void MetodoParaPruebas(){
+        //clase auxiliar para probar código
+    }
+    
+    public static void main(String[] args) {
+
+        //Se pide el tamaño del arreglo [Esto lo hice de forma temporal por si no habia otra manera
+        //de fijar el tamaño del array de objetos]
+        System.out.println("Ingrese tamaño del arreglo: ");
+        int tam = Integer.parseInt(scanner.nextLine());
+        //Este es el tamaño del arreglo con el tamaño pasado por teclado
+        alumnos = new AlumnoClass[tam];
+        int incremento = 0; //Inicio una variable que servirá como contador de las vueltas en cada registro
+        //Aqui se realiza el ciclo de los registros, se detiene cuando la variable anterior
+        //es igual al tamaño del arreglo de objetos pasado por teclado
+        while (incremento != tam) {
+            GuardarDatos(incremento);//Pasamos por parametro el valor de la variable que incrementa en cada vuelta
+            incremento++;
+        }
+        Menu();
     }
 }

@@ -17,8 +17,9 @@ public class AlumnoClass {
     int Semestre;
     String Carrera, Materias[];
     int Calif[], Status[], PromGral;
+    int ContEsp; //contador de materias en especial, sirve para ordenar alumnos que tengan materias en especial
 
-    public AlumnoClass(int NoControl, String Nombres, String ApPat, String ApMat, int Semestre, String Carrera, String[] Materias, int[] Calif, int[] Status, int PromGral) {
+    public AlumnoClass(int NoControl, String Nombres, String ApPat, String ApMat, int Semestre, String Carrera, String[] Materias, int[] Calif, int[] Status, int PromGral, int ContEsp) {
         this.NoControl = NoControl;
         this.Nombres = Nombres;
         this.ApPat = ApPat;
@@ -29,6 +30,7 @@ public class AlumnoClass {
         this.Calif = Calif;
         this.Status = Status;
         this.PromGral = PromGral;
+        this.ContEsp = ContEsp;
     }
 
     public AlumnoClass() {
@@ -112,5 +114,13 @@ public class AlumnoClass {
 
     public void setPromGral(int PromGral) {
         this.PromGral = PromGral;
+    }
+
+    public int getContEsp() {
+        return ContEsp;
+    }
+
+    public void setContEsp(int ContEsp) {
+        this.ContEsp = ContEsp;
     }
 }
