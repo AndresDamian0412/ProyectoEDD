@@ -21,13 +21,6 @@ public class principal {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
-        String a = "hola";
-        String b = "adios";
-        String c = "Hola";
-        
-        int aa = a.compareTo(a), ab = a.compareTo(c), ac = a.compareToIgnoreCase(c);
-        System.out.println(aa + " " + ab + " " + ac);
 
         //Se pide el tamaño del arreglo [Esto lo hice de forma temporal por si no habia otra manera
         //de fijar el tamaño del array de objetos]
@@ -43,7 +36,6 @@ public class principal {
             incremento++;
         }
         Menu();
-
     }
 
     public static void Menu() {
@@ -89,7 +81,7 @@ public class principal {
                 break;
             }
             case 3: {
-
+                
                 break;
             }
             case 4: {
@@ -123,7 +115,8 @@ public class principal {
             }
         }
     }
-
+    
+    //Ordena los alumnos por apellido paterno mediante quicksort
     public static void OrdenaAlumnosApe(AlumnoClass[] arreglo, int izq, int der) {
 
         AlumnoClass pivote = arreglo[izq]; // tomamos primer elemento como pivote
@@ -153,6 +146,38 @@ public class principal {
         }
         if (j + 1 < der) {
             OrdenaAlumnosApe(arreglo, j + 1, der);      // ordenamos subarray derecho
+        }
+    }
+    
+    //Ordena los alumnos por numero de control mediante quicksort
+    public static void OrdenaAlumnosNumC(AlumnoClass[] arreglo, int izq, int der){
+        AlumnoClass pivote = arreglo[izq]; // tomamos primer elemento como pivote
+        int i = izq;         // i realiza la búsqueda de izquierda a derecha
+        int j = der;         // j realiza la búsqueda de derecha a izquierda
+        AlumnoClass aux;
+
+        while (i < j) {                          // mientras no se crucen las búsquedas                                   
+            while (arreglo[i].getNoControl() <= pivote.getNoControl() && i < j) {
+                i++; // busca elemento mayor que pivote
+            }
+            while (arreglo[j].getNoControl() > pivote.getNoControl()) {
+                j--;           // busca elemento menor que pivote
+            }
+            if (i < j) {                        // si no se han cruzado                      
+                aux = arreglo[i];                      // los intercambia
+                arreglo[i] = arreglo[j];
+                arreglo[j] = aux;
+            }
+        }
+
+        arreglo[izq] = arreglo[j];      // se coloca el pivote en su lugar de forma que tendremos                                    
+        arreglo[j] = pivote;      // los menores a su izquierda y los mayores a su derecha
+
+        if (izq < j - 1) {
+            OrdenaAlumnosNumC(arreglo, izq, j - 1);          // ordenamos subarray izquierdo
+        }
+        if (j + 1 < der) {
+            OrdenaAlumnosNumC(arreglo, j + 1, der);      // ordenamos subarray derecho
         }
     }
 
