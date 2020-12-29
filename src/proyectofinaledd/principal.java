@@ -49,14 +49,18 @@ public class principal {
             }
             
             case 2: {
+                //Este espacio esta modificado debido a que no se aplicaba la busqueda binaria **AUN ESTA EN PROCESO**
                 System.out.println("Ingrese carrera: ");
                 String carrera = scanner.nextLine();
                 System.out.println("========Alumnos de " + carrera + "========");
+                
+                String[] Carreras = new String[alumnos.length];
+                int in = 0;
                 for (AlumnoClass alumno : alumnos) {
-                    if(carrera.compareToIgnoreCase(alumno.getCarrera()) == 0){
-                        System.out.println(alumno.getApPat() + " " + alumno.getApMat() + " " + alumno.getNombres());
-                    }
+                    Carreras[in] = alumno.getCarrera();
+                    in++;
                 }
+                int posicion = busquedaBinariaRecursiva(Carreras, carrera, 0, Carreras.length-1);
                 break;
             }
             case 3: {
@@ -94,6 +98,32 @@ public class principal {
             }
         }
     }
+    
+        
+    //Metodo de busqueda binaria con Strings
+    public static int busquedaBinariaRecursiva(String[] array, String busqueda, int izquierda, int derecha){
+        //Si izquierda es mayor que derecha significa que no encontramos nada
+        if(izquierda > derecha){
+            return -1;
+        }
+        //Calculamos las mitades del arreglo
+        int mitad = (int) Math.floor((izquierda+derecha)/2);
+        String elemtMid = array[mitad];
+        int comparacion = busqueda.compareTo(elemtMid);
+        
+        if(comparacion == 0){
+            return mitad;
+        }
+        if(comparacion < 0 ){
+            derecha = mitad-1;
+            return busquedaBinariaRecursiva(array, busqueda, izquierda, derecha);
+        }else{
+            izquierda = mitad+1;
+            return busquedaBinariaRecursiva(array, busqueda, izquierda, derecha);
+        }
+        
+    }
+    
     
     //Ordena los alumnos por apellido paterno mediante quicksort
     public static void OrdenaAlumnosApe(AlumnoClass[] arreglo, int izq, int der) {
@@ -257,6 +287,7 @@ public class principal {
         return -1;
     }
     
+
     public static AlumnoClass[] eliminaElemento(AlumnoClass[] arreglo, int posicion){
         AlumnoClass[] aux = new AlumnoClass[arreglo.length-1];
         for (int i = 0; i < arreglo.length; i++) {
