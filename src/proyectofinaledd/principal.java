@@ -53,28 +53,46 @@ public class principal {
                 }
 
                 case 2: {
-                    //Este espacio esta modificado debido a que no se aplicaba la busqueda binaria **AUN ESTA EN PROCESO**
                     System.out.println("Ingrese carrera: ");
-                    String carrera = scanner.nextLine();
-                    System.out.println("========Alumnos de " + carrera + "========");
-
-                    String[] carreras = new String[alumnos.length];
-                    int in = 0;
-                    for (AlumnoClass alumno : alumnos) {
-                        carreras[in] = alumno.getCarrera();
-                        in++;
+                    String busqueda = scanner.nextLine();
+                    
+                    String[] arregloCarreras = new String[alumnos.length];
+                    
+                    for(int i = 0; i < arregloCarreras.length; i++){
+                        arregloCarreras[i] = alumnos[i].getCarrera();
+                   }
+                    Arrays.sort(arregloCarreras);
+                    System.out.println("======Carreras listaPosiciones=======");
+                    for (String arregloCarrera : arregloCarreras) {
+                        System.out.println(arregloCarrera);
                     }
-                    for (String Carrera : carreras) {
-                        System.out.println(Carrera);
+                    System.out.println("======================================");
+                   
+                    
+                    
+                    boolean salir = false;
+                    while(salir == false){
+                        int encontradas = 0;
+                        for (String carreras : arregloCarreras) {
+                            if(busqueda.equals(carreras)){
+                                encontradas++;
+                            }
+                        }
+                        System.out.println("Encontradas: " + encontradas);
+                        
+                        int posicion = Arrays.binarySearch(arregloCarreras, busqueda);
+                        System.out.println("Posicion encontrada: " + posicion);
+                        
+                        if(posicion >= 0){
+                            arregloCarreras[posicion] = "";
+                        }
+                                
+                        
+                        if(encontradas == 0){
+                            salir = true;
+                        }
                     }
-
-                    //AVISO: POR ALGUNA RAZÓN LA POSICION [0] DEL ARRAY NO ES TOMADA EN CUENTA Y ES COMO SI NO HUBIERA VALOR
-                    //PERO LAS DEMAS POSICIONES SI SON CONOCIDAS. PARECE QUE SOLO ES ESE EL UNICO FALLO QUE HE ENCOTRADO
-                    //EL METODO FUNCIONA PERFECTAMENTE Y SOLO FALTA APLICARLO DE MANERA CORRECTA AL PROBLEMA
-                    //EL METODO FUE CAMBIADO DE RECURSIVO A ITERATIVO (USANDO WHILE) PARA CHECAR SI ESE ERA EL FALLO.
-                    //EL CODIGO ORIGINAL AQUI: https://parzibyte.me/blog/2018/10/31/busqueda-binaria-java-arreglos-cadenas/
-                    System.out.println("Posicion: " + Arrays.binarySearch(alumnos, carrera));
-                    System.out.println("Posicion con metodo: " + busquedaBinariaConWhile(carreras, carrera));
+                    
                     break;
                 }
                 case 3: {
@@ -342,13 +360,12 @@ public class principal {
     }
 
     //metodo de búsqueda binaria, **********falta acoplar a nuestro proyecto*********
-    public static int binarySearch(int[] array, int minLimit, int maxLimit, int value) {
-        if (maxLimit >= 0 && array[minLimit] <= value && array[maxLimit] >= value) {
+    public static int binarySearch(String[] array, int minLimit, int maxLimit, String value) {
+        if (maxLimit >= 0 && array[minLimit].compareTo(value) <= 0 && array[maxLimit].compareTo(value) >= 0) {
             int mid = (minLimit + maxLimit) / 2;
-            System.out.println(String.format("Límite inferior %d límite superior %d valor en el arreglo %d valor a buscar %d", minLimit, maxLimit, array[mid], value));
-            if (array[mid] == value) {
+            if (array[mid].compareTo(value) == 0) {
                 return mid;
-            } else if (array[mid] < value) {
+            } else if (array[mid].compareTo(value) < 0) {
                 return binarySearch(array, mid + 1, maxLimit, value);
             }
             return binarySearch(array, minLimit, mid - 1, value);
@@ -378,6 +395,31 @@ public class principal {
                 + busqueda
                 + ") se encuentra en el index "
                 + indiceDelElementoBuscado);
+        /*
+        //===========================================================================
+         //Este espacio esta modificado debido a que no se aplicaba la busqueda binaria **AUN ESTA EN PROCESO**
+                    System.out.println("Ingrese carrera: ");
+                    String carrera = scanner.nextLine();
+                    System.out.println("========Alumnos de " + carrera + "========");
+
+                    String[] carreras = new String[alumnos.length];
+                    int in = 0;
+                    for (AlumnoClass alumno : alumnos) {
+                        carreras[in] = alumno.getCarrera();
+                        in++;
+                    }
+                    for (String Carrera : carreras) {
+                        System.out.println(Carrera);
+                    }
+
+                    //AVISO: POR ALGUNA RAZÓN LA POSICION [0] DEL ARRAY NO ES TOMADA EN CUENTA Y ES COMO SI NO HUBIERA VALOR
+                    //PERO LAS DEMAS POSICIONES SI SON CONOCIDAS. PARECE QUE SOLO ES ESE EL UNICO FALLO QUE HE ENCOTRADO
+                    //EL METODO FUNCIONA PERFECTAMENTE Y SOLO FALTA APLICARLO DE MANERA CORRECTA AL PROBLEMA
+                    //EL METODO FUE CAMBIADO DE RECURSIVO A ITERATIVO (USANDO WHILE) PARA CHECAR SI ESE ERA EL FALLO.
+                    //EL CODIGO ORIGINAL AQUI: https://parzibyte.me/blog/2018/10/31/busqueda-binaria-java-arreglos-cadenas/
+                    System.out.println("Posicion: " + Arrays.binarySearch(alumnos, carrera));
+                    System.out.println("Posicion con metodo: " + busquedaBinariaConWhile(carreras, carrera));
+        */
     }
 
     public static void main(String[] args) {
