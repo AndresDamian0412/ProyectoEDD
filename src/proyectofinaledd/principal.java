@@ -245,7 +245,7 @@ public class principal {
     }
 
     //Aqui esta el metodo que pide los registros de los alumnos y lo almacena en el arreglo de objetos
-    public static void GuardarDatos(int incremento) {
+    /*public static void GuardarDatos(int incremento) {
         String materias[] = new String[6];
         int Calif[] = new int[6];
         int Status[] = new int[6];
@@ -292,6 +292,65 @@ public class principal {
         //Se guardan los datos en el arreglo de objetos, la posicion depende del valor que se le pasa
         //por parametro
         alumnos[incremento] = new AlumnoClass(nControl, Nombre, ApPat, ApMat, Semestre, Carrera, materias, Calif, Status, Prom, ContEsp);
+    }*/
+    
+    //Este método sirve únicamente para guardar objetos de tipo alumno, así facilitanto las pruebas
+    public static void CreacionDeObjetos(){
+        String[]Materias1 = {"Fisica","Calculo","Español","Geografia","Musica","Historia"};
+        String[]Materias2 = {"Ingles","Español","Arte","Atronomia","Fisica","EDD"};
+        String[]Materias3 = {"Calculo","Historia","Fisica","Español","Geografia","Artes"};
+        String[]Materias4 = {"Español","Fisica","Biología","Arte","Musica","Calculo"};
+        String[]Materias5 = {"Quimica","Artes","Biotecnología","Aeronautica","Musica","Filosofía"};
+        String[]Materias6 = {"Español","Fisica","Biología","Arte","Musica","Calculo"};
+        String[]Materias7 = {"Ingles","Español","Arte","Atronomia","Fisica","EDD"};
+        String[]Materias8 = {"Quimica","Artes","Biotecnología","Aeronautica","Musica","Filosofía"};
+        String[]Materias9 = {"Calculo","Historia","Fisica","Español","Geografia","Artes"};
+        String[]Materias10 = {"Fisica","Calculo","Español","Geografia","Musica","Historia"};
+        
+        int[] Calificaciones1 = {70,85,90,60,80,70};
+        int[] Calificaciones2 = {100,100,100,100,100,90};
+        int[] Calificaciones3 = {90,80,90,95,100,70,};
+        int[] Calificaciones4 = {70,70,70,60,50,70};
+        int[] Calificaciones5 = {80,70,80,60,70,80};
+        int[] Calificaciones6 = {90,85,85,90,80,70};
+        int[] Calificaciones7 = {80,80,80,75,90,90};
+        int[] Calificaciones8 = {70,70,65,80,65,70};
+        int[] Calificaciones9 = {100,100,100,90,90,80};
+        int[] Calificaciones10 = {100,90,90,70,80,100};
+        
+        int[]status1 = {1,1,1,1,1,3};
+        int[]status2 = {1,2,2,1,1,1,};
+        int[]status3 = {1,1,1,1,1,1};
+        int[]status4 = {2,2,2,3,3,1};
+        int[]status5 = {1,1,2,2,1,3};
+        int[]status6 = {1,1,1,1,1,1};
+        int[]status7 = {1,2,1,1,2,1};
+        int[]status8 = {2,2,3,3,2,1};
+        int[]status9 = {1,1,1,1,1,2};
+        int[]status10 = {2,2,1,2,3,1};
+        
+        AlumnoClass Alumno1 = new AlumnoClass(123,"Mario","Fernandez","Aguilar",3,"Sistemas",Materias1,Calificaciones1,status1,75,1);
+        AlumnoClass Alumno2 = new AlumnoClass(456,"Pedro","Aguilar","Andrade",5,"Industrial",Materias2,Calificaciones2,status2,98,0);
+        AlumnoClass Alumno3 = new AlumnoClass(789,"Iosef","Tarasov","Sanchez",7,"Alimentarias",Materias3,Calificaciones3,status3,87,0);
+        AlumnoClass Alumno4 = new AlumnoClass(147,"Axelin","Lara","Rodriguez",7,"Sistemas",Materias4,Calificaciones4,status4,65,2);
+        AlumnoClass Alumno5 = new AlumnoClass(258,"Andrew","Chavez","Damian",1,"Industrial",Materias5,Calificaciones5,status5,73,1);
+        AlumnoClass Alumno6 = new AlumnoClass(369,"Lupe","Hernandez","Lopez",3,"Alimentarias",Materias6,Calificaciones6,status6,83,0);
+        AlumnoClass Alumno7 = new AlumnoClass(321,"Juan","Ponce","Maldonado",9,"Industrial",Materias7,Calificaciones7,status7,82,0);
+        AlumnoClass Alumno8 = new AlumnoClass(654,"Fercho","Gimenez","Torres",9,"Alimentarias",Materias8,Calificaciones8,status8,70,2);
+        AlumnoClass Alumno9 = new AlumnoClass(987,"Armando","Manzanero","Juarez",3,"Sistemas",Materias9,Calificaciones9,status9,93,0);
+        AlumnoClass Alumno10 = new AlumnoClass(159,"Panfilo","Marquez","Salinas",5,"Sistemas",Materias10,Calificaciones10,status10,88,1);
+        
+        alumnos[0] = Alumno1;
+        alumnos[1] = Alumno2;
+        alumnos[2] = Alumno3;
+        alumnos[3] = Alumno4;
+        alumnos[4] = Alumno5;
+        alumnos[5] = Alumno6;
+        alumnos[6] = Alumno7;
+        alumnos[7] = Alumno8;
+        alumnos[8] = Alumno9;
+        alumnos[0] = Alumno10;
+        
     }
 
     //metodo de búsqueda binaria, **********falta acoplar a nuestro proyecto*********
@@ -341,14 +400,15 @@ public class principal {
         System.out.println("Ingrese tamaño del arreglo: ");
         int tam = Integer.parseInt(scanner.nextLine());
         //Este es el tamaño del arreglo con el tamaño pasado por teclado
-        alumnos = new AlumnoClass[tam];
+        alumnos = new AlumnoClass[10];
         int incremento = 0; //Inicio una variable que servirá como contador de las vueltas en cada registro
         //Aqui se realiza el ciclo de los registros, se detiene cuando la variable anterior
         //es igual al tamaño del arreglo de objetos pasado por teclado
-        while (incremento != tam) {
+        /*while (incremento != tam) {
             GuardarDatos(incremento);//Pasamos por parametro el valor de la variable que incrementa en cada vuelta
             incremento++;
-        }
+        }*/
+        CreacionDeObjetos();
         Menu();
     }
 }
