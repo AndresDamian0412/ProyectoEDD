@@ -58,25 +58,23 @@ public class principal {
                     String carrera = scanner.nextLine();
                     System.out.println("========Alumnos de " + carrera + "========");
 
-                    String[] Carreras = new String[alumnos.length];
+                    String[] carreras = new String[alumnos.length];
                     int in = 0;
                     for (AlumnoClass alumno : alumnos) {
-                        Carreras[in] = alumno.getCarrera();
+                        carreras[in] = alumno.getCarrera();
                         in++;
                     }
-                    for (String Carrera : Carreras) {
+                    for (String Carrera : carreras) {
                         System.out.println(Carrera);
                     }
 
-                    //int posicion = busquedaBinariaRecursiva(Carreras, carrera, 0, Carreras.length-1);
-                    
                     //AVISO: POR ALGUNA RAZÓN LA POSICION [0] DEL ARRAY NO ES TOMADA EN CUENTA Y ES COMO SI NO HUBIERA VALOR
                     //PERO LAS DEMAS POSICIONES SI SON CONOCIDAS. PARECE QUE SOLO ES ESE EL UNICO FALLO QUE HE ENCOTRADO
                     //EL METODO FUNCIONA PERFECTAMENTE Y SOLO FALTA APLICARLO DE MANERA CORRECTA AL PROBLEMA
                     //EL METODO FUE CAMBIADO DE RECURSIVO A ITERATIVO (USANDO WHILE) PARA CHECAR SI ESE ERA EL FALLO.
                     //EL CODIGO ORIGINAL AQUI: https://parzibyte.me/blog/2018/10/31/busqueda-binaria-java-arreglos-cadenas/
-                    System.out.println("Posicion: " + Arrays.binarySearch(Carreras, carrera));
-                    System.out.println("Posicion con metodo: " + busquedaBinariaConWhile(Carreras, carrera));
+                    System.out.println("Posicion: " + Arrays.binarySearch(alumnos, carrera));
+                    System.out.println("Posicion con metodo: " + busquedaBinariaConWhile(carreras, carrera));
                     break;
                 }
                 case 3: {
@@ -321,12 +319,23 @@ public class principal {
         return aux;
     }
 
-    public void MetodoParaPruebas() {
+    public static void MetodoParaPruebas() {
         //clase auxiliar para probar código
+
+        String[] arreglo = {"Chris", "Claire", "Django", "John", "Leon", "Morty", "Rick", "Saul", "Tuco", "Walter"};
+
+        String busqueda = "Chris";
+        // Ahora con la que usa el ciclo while
+        int indiceDelElementoBuscado = busquedaBinariaConWhile(arreglo, busqueda);
+        System.out.println("[Con ciclo While] -- El elemento buscado ("
+                + busqueda
+                + ") se encuentra en el index "
+                + indiceDelElementoBuscado);
     }
 
     public static void main(String[] args) {
 
+        MetodoParaPruebas();
         //Se pide el tamaño del arreglo [Esto lo hice de forma temporal por si no habia otra manera
         //de fijar el tamaño del array de objetos]
         System.out.println("Ingrese tamaño del arreglo: ");
