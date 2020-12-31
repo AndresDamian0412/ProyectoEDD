@@ -5,7 +5,7 @@
  */
 package proyectofinaledd;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -48,51 +48,49 @@ public class principal {
                                 + " " + alumno.getNoControl() + " " + alumno.getCarrera() + " " + alumno.getSemestre()
                                 + " " + alumno.getPromGral());
                     }
-
                     break;
                 }
 
                 case 2: {
+                    //Se crea una copia del arreglo de alumnos para no afectar su contenido accidentalmente
+                    AlumnoClass[] aux = new AlumnoClass[10];
+                    aux = alumnos;
+                    //Se crea un arraylist para guardar los resultados de la busqueda
+                    ArrayList<AlumnoClass> encontrados = new ArrayList<AlumnoClass>();
+                    //Se ordenan los alumnos del array en base a su carrera para que la busqueda binaria funcione
+                    OrdenaAlumnosCarr(aux, 0, aux.length - 1);
+
                     System.out.println("Ingrese carrera: ");
                     String busqueda = scanner.nextLine();
-                    
-                    String[] arregloCarreras = new String[alumnos.length];
-                    
-                    for(int i = 0; i < arregloCarreras.length; i++){
-                        arregloCarreras[i] = alumnos[i].getCarrera();
-                   }
-                    Arrays.sort(arregloCarreras);
-                    System.out.println("======Carreras listaPosiciones=======");
-                    for (String arregloCarrera : arregloCarreras) {
-                        System.out.println(arregloCarrera);
+
+                    int posicion; //guarda la posicion en la que encontro un alumno de esa carrera
+                    posicion = binarySearchCarrera(aux, 0, aux.length - 1, busqueda);//hace la busqueda y asigna posicion
+                    while (posicion != -1) {         //Mientras encuentre alumnos
+                        encontrados.add(aux[posicion]); //agrega el alumno al arraylist
+                        aux = eliminaElemento(aux, posicion);  //elimina el alumno que ya encontró
+                        posicion = binarySearchCarrera(aux, 0, aux.length - 1, busqueda); //vuelve a buscar
                     }
-                    System.out.println("======================================");
-                   
-                    
-                    
-                    boolean salir = false;
-                    while(salir == false){
-                        int encontradas = 0;
-                        for (String carreras : arregloCarreras) {
-                            if(busqueda.equals(carreras)){
-                                encontradas++;
-                            }
-                        }
-                        System.out.println("Encontradas: " + encontradas);
-                        
-                        int posicion = Arrays.binarySearch(arregloCarreras, busqueda);
-                        System.out.println("Posicion encontrada: " + posicion);
-                        
-                        if(posicion >= 0){
-                            arregloCarreras[posicion] = "";
-                        }
-                                
-                        
-                        if(encontradas == 0){
-                            salir = true;
-                        }
+                    //Ahora hay que vaciar los objetos en un arreglo normal para poder utilizar el metodo de ordenamiento
+                    AlumnoClass[] aux2 = new AlumnoClass[encontrados.size()];
+                    for (int i = 0; i < encontrados.size(); i++) {
+                        aux2[i] = encontrados.get(i);
                     }
-                    
+                    OrdenaAlumnosApe(aux2, 0, aux2.length - 1);
+                    for (AlumnoClass aux21 : aux2) {
+                        System.out.println(aux21.getNombres() + " " + aux21.getApPat() + " " + aux21.getApMat()
+                                + " " + aux21.getNoControl() + " " + aux21.getCarrera() + " " + aux21.getSemestre()
+                                + " " + aux21.getPromGral());
+                    }
+
+                    //String[] arregloCarreras = new String[aux.length];
+                    //for (int i = 0; i < arregloCarreras.length; i++) {
+                    //    arregloCarreras[i] = aux[i].getCarrera();
+                    //}
+                    //System.out.println("======Carreras listaPosiciones=======");
+                    //for (String arregloCarrera : arregloCarreras) {
+                    //    System.out.println(arregloCarrera);
+                    //}
+                    //System.out.println("======================================");
                     break;
                 }
                 case 3: {
@@ -164,6 +162,39 @@ public class principal {
         return -1;
     }
 
+    //QuickSort con cadenas
+    public static void OrdenaCadenas(String[] arreglo, int izq, int der) {
+
+        String pivote = arreglo[izq]; // tomamos primer elemento como pivote
+        int i = izq;         // i realiza la búsqueda de izquierda a derecha
+        int j = der;         // j realiza la búsqueda de derecha a izquierda
+        String aux;
+
+        while (i < j) {                          // mientras no se crucen las búsquedas                                   
+            while (arreglo[i].compareTo(pivote) <= 0 && i < j) {
+                i++; // busca elemento mayor que pivote
+            }
+            while (arreglo[j].compareTo(pivote) > 0) {
+                j--;           // busca elemento menor que pivote
+            }
+            if (i < j) {                        // si no se han cruzado                      
+                aux = arreglo[i];                      // los intercambia
+                arreglo[i] = arreglo[j];
+                arreglo[j] = aux;
+            }
+        }
+
+        arreglo[izq] = arreglo[j];      // se coloca el pivote en su lugar de forma que tendremos                                    
+        arreglo[j] = pivote;      // los menores a su izquierda y los mayores a su derecha
+
+        if (izq < j - 1) {
+            OrdenaCadenas(arreglo, izq, j - 1);          // ordenamos subarray izquierdo
+        }
+        if (j + 1 < der) {
+            OrdenaCadenas(arreglo, j + 1, der);      // ordenamos subarray derecho
+        }
+    }
+
     //Ordena los alumnos por apellido paterno mediante quicksort
     public static void OrdenaAlumnosApe(AlumnoClass[] arreglo, int izq, int der) {
 
@@ -226,6 +257,39 @@ public class principal {
         }
         if (j + 1 < der) {
             OrdenaAlumnosNumC(arreglo, j + 1, der);      // ordenamos subarray derecho
+        }
+    }
+
+    //Ordena los alumnos por la carrera que cursen
+    public static void OrdenaAlumnosCarr(AlumnoClass[] arreglo, int izq, int der) {
+
+        AlumnoClass pivote = arreglo[izq]; // tomamos primer elemento como pivote
+        int i = izq;         // i realiza la búsqueda de izquierda a derecha
+        int j = der;         // j realiza la búsqueda de derecha a izquierda
+        AlumnoClass aux;
+
+        while (i < j) {                          // mientras no se crucen las búsquedas                                   
+            while (arreglo[i].getCarrera().compareTo(pivote.getCarrera()) <= 0 && i < j) {
+                i++; // busca elemento mayor que pivote
+            }
+            while (arreglo[j].getCarrera().compareTo(pivote.getCarrera()) > 0) {
+                j--;           // busca elemento menor que pivote
+            }
+            if (i < j) {                        // si no se han cruzado                      
+                aux = arreglo[i];                      // los intercambia
+                arreglo[i] = arreglo[j];
+                arreglo[j] = aux;
+            }
+        }
+
+        arreglo[izq] = arreglo[j];      // se coloca el pivote en su lugar de forma que tendremos                                    
+        arreglo[j] = pivote;      // los menores a su izquierda y los mayores a su derecha
+
+        if (izq < j - 1) {
+            OrdenaAlumnosCarr(arreglo, izq, j - 1);          // ordenamos subarray izquierdo
+        }
+        if (j + 1 < der) {
+            OrdenaAlumnosCarr(arreglo, j + 1, der);      // ordenamos subarray derecho
         }
     }
 
@@ -311,52 +375,51 @@ public class principal {
         //por parametro
         alumnos[incremento] = new AlumnoClass(nControl, Nombre, ApPat, ApMat, Semestre, Carrera, materias, Calif, Status, Prom, ContEsp);
     }*/
-    
     //Este método sirve únicamente para guardar objetos de tipo alumno, así facilitanto las pruebas
-    public static void CreacionDeObjetos(){
-        String[]Materias1 = {"Fisica","Calculo","Español","Geografia","Musica","Historia"};
-        String[]Materias2 = {"Ingles","Español","Arte","Atronomia","Fisica","EDD"};
-        String[]Materias3 = {"Calculo","Historia","Fisica","Español","Geografia","Artes"};
-        String[]Materias4 = {"Español","Fisica","Biología","Arte","Musica","Calculo"};
-        String[]Materias5 = {"Quimica","Artes","Biotecnología","Aeronautica","Musica","Filosofía"};
-        String[]Materias6 = {"Español","Fisica","Biología","Arte","Musica","Calculo"};
-        String[]Materias7 = {"Ingles","Español","Arte","Atronomia","Fisica","EDD"};
-        String[]Materias8 = {"Quimica","Artes","Biotecnología","Aeronautica","Musica","Filosofía"};
-        String[]Materias9 = {"Calculo","Historia","Fisica","Español","Geografia","Artes"};
-        String[]Materias10 = {"Fisica","Calculo","Español","Geografia","Musica","Historia"};
-        
-        int[] Calificaciones1 = {70,85,90,60,80,70};
-        int[] Calificaciones2 = {100,100,100,100,100,90};
-        int[] Calificaciones3 = {90,80,90,95,100,70,};
-        int[] Calificaciones4 = {70,70,70,60,50,70};
-        int[] Calificaciones5 = {80,70,80,60,70,80};
-        int[] Calificaciones6 = {90,85,85,90,80,70};
-        int[] Calificaciones7 = {80,80,80,75,90,90};
-        int[] Calificaciones8 = {70,70,65,80,65,70};
-        int[] Calificaciones9 = {100,100,100,90,90,80};
-        int[] Calificaciones10 = {100,90,90,70,80,100};
-        
-        int[]status1 = {1,1,1,1,1,3};
-        int[]status2 = {1,2,2,1,1,1,};
-        int[]status3 = {1,1,1,1,1,1};
-        int[]status4 = {2,2,2,3,3,1};
-        int[]status5 = {1,1,2,2,1,3};
-        int[]status6 = {1,1,1,1,1,1};
-        int[]status7 = {1,2,1,1,2,1};
-        int[]status8 = {2,2,3,3,2,1};
-        int[]status9 = {1,1,1,1,1,2};
-        int[]status10 = {2,2,1,2,3,1}; 
-        
-        alumnos[0] = new AlumnoClass(123,"Mario","Fernandez","Aguilar",3,"Sistemas",Materias1,Calificaciones1,status1,75,1);
-        alumnos[1] = new AlumnoClass(456,"Pedro","Aguilar","Andrade",5,"Industrial",Materias2,Calificaciones2,status2,98,0);
-        alumnos[2] = new AlumnoClass(789,"Iosef","Tarasov","Sanchez",7,"Alimentarias",Materias3,Calificaciones3,status3,87,0);
-        alumnos[3] = new AlumnoClass(147,"Axelin","Lara","Rodriguez",7,"Sistemas",Materias4,Calificaciones4,status4,65,2);
-        alumnos[4] = new AlumnoClass(258,"Andrew","Chavez","Damian",1,"Industrial",Materias5,Calificaciones5,status5,73,1);
-        alumnos[5] = new AlumnoClass(369,"Lupe","Hernandez","Lopez",3,"Alimentarias",Materias6,Calificaciones6,status6,83,0);
-        alumnos[6] = new AlumnoClass(321,"Juan","Ponce","Maldonado",9,"Industrial",Materias7,Calificaciones7,status7,82,0);
-        alumnos[7] = new AlumnoClass(654,"Fercho","Gimenez","Torres",9,"Alimentarias",Materias8,Calificaciones8,status8,70,2);
-        alumnos[8] = new AlumnoClass(987,"Armando","Manzanero","Juarez",3,"Sistemas",Materias9,Calificaciones9,status9,93,0);
-        alumnos[9] = new AlumnoClass(159,"Panfilo","Marquez","Salinas",5,"Sistemas",Materias10,Calificaciones10,status10,88,1);
+    public static void CreacionDeObjetos() {
+        String[] Materias1 = {"Fisica", "Calculo", "Español", "Geografia", "Musica", "Historia"};
+        String[] Materias2 = {"Ingles", "Español", "Arte", "Atronomia", "Fisica", "EDD"};
+        String[] Materias3 = {"Calculo", "Historia", "Fisica", "Español", "Geografia", "Artes"};
+        String[] Materias4 = {"Español", "Fisica", "Biología", "Arte", "Musica", "Calculo"};
+        String[] Materias5 = {"Quimica", "Artes", "Biotecnología", "Aeronautica", "Musica", "Filosofía"};
+        String[] Materias6 = {"Español", "Fisica", "Biología", "Arte", "Musica", "Calculo"};
+        String[] Materias7 = {"Ingles", "Español", "Arte", "Atronomia", "Fisica", "EDD"};
+        String[] Materias8 = {"Quimica", "Artes", "Biotecnología", "Aeronautica", "Musica", "Filosofía"};
+        String[] Materias9 = {"Calculo", "Historia", "Fisica", "Español", "Geografia", "Artes"};
+        String[] Materias10 = {"Fisica", "Calculo", "Español", "Geografia", "Musica", "Historia"};
+
+        int[] Calificaciones1 = {70, 85, 90, 60, 80, 70};
+        int[] Calificaciones2 = {100, 100, 100, 100, 100, 90};
+        int[] Calificaciones3 = {90, 80, 90, 95, 100, 70,};
+        int[] Calificaciones4 = {70, 70, 70, 60, 50, 70};
+        int[] Calificaciones5 = {80, 70, 80, 60, 70, 80};
+        int[] Calificaciones6 = {90, 85, 85, 90, 80, 70};
+        int[] Calificaciones7 = {80, 80, 80, 75, 90, 90};
+        int[] Calificaciones8 = {70, 70, 65, 80, 65, 70};
+        int[] Calificaciones9 = {100, 100, 100, 90, 90, 80};
+        int[] Calificaciones10 = {100, 90, 90, 70, 80, 100};
+
+        int[] status1 = {1, 1, 1, 1, 1, 3};
+        int[] status2 = {1, 2, 2, 1, 1, 1,};
+        int[] status3 = {1, 1, 1, 1, 1, 1};
+        int[] status4 = {2, 2, 2, 3, 3, 1};
+        int[] status5 = {1, 1, 2, 2, 1, 3};
+        int[] status6 = {1, 1, 1, 1, 1, 1};
+        int[] status7 = {1, 2, 1, 1, 2, 1};
+        int[] status8 = {2, 2, 3, 3, 2, 1};
+        int[] status9 = {1, 1, 1, 1, 1, 2};
+        int[] status10 = {2, 2, 1, 2, 3, 1};
+
+        alumnos[0] = new AlumnoClass(123, "Mario", "Fernandez", "Aguilar", 3, "Sistemas", Materias1, Calificaciones1, status1, 75, 1);
+        alumnos[1] = new AlumnoClass(456, "Pedro", "Aguilar", "Andrade", 5, "Industrial", Materias2, Calificaciones2, status2, 98, 0);
+        alumnos[2] = new AlumnoClass(789, "Iosef", "Tarasov", "Sanchez", 7, "Alimentarias", Materias3, Calificaciones3, status3, 87, 0);
+        alumnos[3] = new AlumnoClass(147, "Axelin", "Lara", "Rodriguez", 7, "Sistemas", Materias4, Calificaciones4, status4, 65, 2);
+        alumnos[4] = new AlumnoClass(258, "Andrew", "Chavez", "Damian", 1, "Industrial", Materias5, Calificaciones5, status5, 73, 1);
+        alumnos[5] = new AlumnoClass(369, "Lupe", "Hernandez", "Lopez", 3, "Alimentarias", Materias6, Calificaciones6, status6, 83, 0);
+        alumnos[6] = new AlumnoClass(321, "Juan", "Ponce", "Maldonado", 9, "Industrial", Materias7, Calificaciones7, status7, 82, 0);
+        alumnos[7] = new AlumnoClass(654, "Fercho", "Gimenez", "Torres", 9, "Alimentarias", Materias8, Calificaciones8, status8, 70, 2);
+        alumnos[8] = new AlumnoClass(987, "Armando", "Manzanero", "Juarez", 3, "Sistemas", Materias9, Calificaciones9, status9, 93, 0);
+        alumnos[9] = new AlumnoClass(159, "Panfilo", "Marquez", "Salinas", 5, "Sistemas", Materias10, Calificaciones10, status10, 88, 1);
     }
 
     //metodo de búsqueda binaria, **********falta acoplar a nuestro proyecto*********
@@ -373,11 +436,27 @@ public class principal {
         return -1;
     }
 
+    //metodo de búsqueda binaria, **********falta acoplar a nuestro proyecto*********
+    public static int binarySearchCarrera(AlumnoClass[] array, int minLimit, int maxLimit, String value) {
+        if (maxLimit >= 0 && array[minLimit].getCarrera().compareTo(value) <= 0 && array[maxLimit].getCarrera().compareTo(value) >= 0) {
+            int mid = (minLimit + maxLimit) / 2;
+            if (array[mid].getCarrera().compareTo(value) == 0) {
+                return mid;
+            } else if (array[mid].getCarrera().compareTo(value) < 0) {
+                return binarySearchCarrera(array, mid + 1, maxLimit, value);
+            }
+            return binarySearchCarrera(array, minLimit, mid - 1, value);
+        }
+        return -1;
+    }
+
     public static AlumnoClass[] eliminaElemento(AlumnoClass[] arreglo, int posicion) {
         AlumnoClass[] aux = new AlumnoClass[arreglo.length - 1];
+        int j=0;
         for (int i = 0; i < arreglo.length; i++) {
             if (i != posicion) {                //éste método únicamente nos sirve para eliminar
-                aux[i] = arreglo[i];         // los alumnos reprobados que vayamos pasando al arreglo
+                aux[j] = arreglo[i];         // los alumnos reprobados que vayamos pasando al arreglo
+                j++;
             }
         }
         return aux;
@@ -419,19 +498,20 @@ public class principal {
                     //EL CODIGO ORIGINAL AQUI: https://parzibyte.me/blog/2018/10/31/busqueda-binaria-java-arreglos-cadenas/
                     System.out.println("Posicion: " + Arrays.binarySearch(alumnos, carrera));
                     System.out.println("Posicion con metodo: " + busquedaBinariaConWhile(carreras, carrera));
-        */
+         */
     }
 
     public static void main(String[] args) {
 
-        MetodoParaPruebas();
+       
+        //MetodoParaPruebas();
         //Se pide el tamaño del arreglo [Esto lo hice de forma temporal por si no habia otra manera
         //de fijar el tamaño del array de objetos]
-        System.out.println("Ingrese tamaño del arreglo: ");
-        int tam = Integer.parseInt(scanner.nextLine());
+        //System.out.println("Ingrese tamaño del arreglo: ");
+        //int tam = Integer.parseInt(scanner.nextLine());
         //Este es el tamaño del arreglo con el tamaño pasado por teclado
         alumnos = new AlumnoClass[10];
-        int incremento = 0; //Inicio una variable que servirá como contador de las vueltas en cada registro
+        //int incremento = 0; //Inicio una variable que servirá como contador de las vueltas en cada registro
         //Aqui se realiza el ciclo de los registros, se detiene cuando la variable anterior
         //es igual al tamaño del arreglo de objetos pasado por teclado
         /*while (incremento != tam) {
