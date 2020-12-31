@@ -95,7 +95,8 @@ public class principal {
                     break;
                 }
                 case 3: {
-                    
+
+                    /*
                     ArrayList<AlumnoClass> aux = new ArrayList<>();
                     
                     for (AlumnoClass arrayOriginal : alumnos) {
@@ -109,7 +110,42 @@ public class principal {
                         
                         
                     }
-                    
+                     */
+                    int posicion = 0;
+                    ArrayList<AlumnoClass> aux = new ArrayList<>();
+
+                    for (AlumnoClass arrayOrigial : alumnos) {
+
+                        boolean tiene_reprobadas = false;
+                        int[] calificaciones = arrayOrigial.getCalif();
+                        int[] status = arrayOrigial.getStatus();
+
+                        for (int j = 0; j < arrayOrigial.getCalif().length; j++) {
+                            if (calificaciones[j] < 70 && status[j] == 3) {
+                                tiene_reprobadas = true;
+                            }
+                        }
+
+                        if (tiene_reprobadas == true) {
+                            aux.add(arrayOrigial);
+                        }
+                    }
+
+                    AlumnoClass aux2[] = new AlumnoClass[aux.size()];
+
+                    for (int i = 0; i < aux.size(); i++) {
+                        aux2[i] = aux.get(i);
+                    }
+
+                    OrdenaAlumnosNumC(aux2, 0, aux2.length - 1);
+
+                    for (AlumnoClass aux21 : aux2) {
+                        System.out.println(aux21.getNombres() + " " + aux21.getApPat() + " " + aux21.getApMat()
+                                + " " + aux21.getNoControl() + " " + aux21.getCarrera() + " " + aux21.getSemestre()
+                                + " " + aux21.getPromGral());
+                    }
+
+
                     break;
                 }
                 case 4: {
@@ -467,7 +503,7 @@ public class principal {
 
     public static AlumnoClass[] eliminaElemento(AlumnoClass[] arreglo, int posicion) {
         AlumnoClass[] aux = new AlumnoClass[arreglo.length - 1];
-        int j=0;
+        int j = 0;
         for (int i = 0; i < arreglo.length; i++) {
             if (i != posicion) {                //éste método únicamente nos sirve para eliminar
                 aux[j] = arreglo[i];         // los alumnos reprobados que vayamos pasando al arreglo
@@ -518,7 +554,6 @@ public class principal {
 
     public static void main(String[] args) {
 
-       
         //MetodoParaPruebas();
         //Se pide el tamaño del arreglo [Esto lo hice de forma temporal por si no habia otra manera
         //de fijar el tamaño del array de objetos]
