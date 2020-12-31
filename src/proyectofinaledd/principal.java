@@ -6,12 +6,12 @@
 package proyectofinaledd;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**
  *
  * @author josep
+ * @author andre
  */
 public class principal {
 
@@ -45,9 +45,9 @@ public class principal {
                     OrdenaAlumnosApe(alumnos, 0, (alumnos.length - 1));//ordena los objetos alumno por apellido paterno
                     //sigue mostrarlos // Ya los muestra ;) Pero falta darle forma, es temporal la muestra de datos
                     for (AlumnoClass alumno : alumnos) {
-                        System.out.println(alumno.getNombres() + " " + alumno.getApPat() + " " + alumno.getApMat()
-                                + " " + alumno.getNoControl() + " " + alumno.getCarrera() + " " + alumno.getSemestre()
-                                + " " + alumno.getPromGral());
+                        System.out.println("NOMBRE: "+ alumno.getApPat() + " " + alumno.getApMat()+" "+alumno.getNombres()
+                                +"\t"+ " NO. CONTROL: " + alumno.getNoControl() + "\t" + " CARRERA: " + alumno.getCarrera() +"\t"+ " SEMESTRE: "
+                                        + alumno.getSemestre()+"\t"+ " PROMEDIO: " + alumno.getPromGral());
                     }
                     break;
                 }
@@ -78,20 +78,10 @@ public class principal {
                     }
                     OrdenaAlumnosApe(aux2, 0, aux2.length - 1);
                     for (AlumnoClass aux21 : aux2) {
-                        System.out.println(aux21.getNombres() + " " + aux21.getApPat() + " " + aux21.getApMat()
-                                + " " + aux21.getNoControl() + " " + aux21.getCarrera() + " " + aux21.getSemestre()
-                                + " " + aux21.getPromGral());
+                        System.out.println("NOMBRE(S):"+ aux21.getApPat() + " " + aux21.getApMat()+" "+aux21.getNombres()
+                                + "\t"+ " NO. CONTROL: " + aux21.getNoControl() + "\t"+" CARRERA: " + aux21.getCarrera() + "\t"+" SEMESTRE: " + aux21.getSemestre()
+                                + "\t"+" PROMEDIO: " + aux21.getPromGral());
                     }
-
-                    //String[] arregloCarreras = new String[aux.length];
-                    //for (int i = 0; i < arregloCarreras.length; i++) {
-                    //    arregloCarreras[i] = aux[i].getCarrera();
-                    //}
-                    //System.out.println("======Carreras listaPosiciones=======");
-                    //for (String arregloCarrera : arregloCarreras) {
-                    //    System.out.println(arregloCarrera);
-                    //}
-                    //System.out.println("======================================");
                     break;
                 }
                 case 3: {
@@ -140,12 +130,10 @@ public class principal {
                     OrdenaAlumnosNumC(aux2, 0, aux2.length - 1);
 
                     for (AlumnoClass aux21 : aux2) {
-                        System.out.println(aux21.getNombres() + " " + aux21.getApPat() + " " + aux21.getApMat()
-                                + " " + aux21.getNoControl() + " " + aux21.getCarrera() + " " + aux21.getSemestre()
-                                + " " + aux21.getPromGral());
+                        System.out.println("NOMBRE: " + aux21.getApPat() + " " + aux21.getApMat()+" "+aux21.getNombres()
+                                +"\t"+ " NO. CONTROL: " + aux21.getNoControl() + "\t"+" CARRERA: " + aux21.getCarrera() +"\t"+ " SEMESTRE: " + aux21.getSemestre()
+                                + "\t"+" PROMEDIO: " + aux21.getPromGral());
                     }
-
-
                     break;
                 }
                 case 4: {
