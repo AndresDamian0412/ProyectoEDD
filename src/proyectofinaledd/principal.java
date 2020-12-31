@@ -6,6 +6,7 @@
 package proyectofinaledd;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -94,7 +95,21 @@ public class principal {
                     break;
                 }
                 case 3: {
-
+                    
+                    ArrayList<AlumnoClass> aux = new ArrayList<>();
+                    
+                    for (AlumnoClass arrayOriginal : alumnos) {
+                        
+                        boolean tiene_reprobadas = false;
+                        int[] calificaciones = arrayOriginal.getCalif();
+                        int[] status = arrayOriginal.getStatus();
+                        
+                        Arrays.sort(calificaciones);
+                        Arrays.sort(status);
+                        
+                        
+                    }
+                    
                     break;
                 }
                 case 4: {
@@ -423,12 +438,12 @@ public class principal {
     }
 
     //metodo de búsqueda binaria, **********falta acoplar a nuestro proyecto*********
-    public static int binarySearch(String[] array, int minLimit, int maxLimit, String value) {
-        if (maxLimit >= 0 && array[minLimit].compareTo(value) <= 0 && array[maxLimit].compareTo(value) >= 0) {
+    public static int binarySearch(int[] array, int minLimit, int maxLimit, int value) {
+        if (maxLimit >= 0 && array[minLimit] <= value && array[maxLimit] >= value) {
             int mid = (minLimit + maxLimit) / 2;
-            if (array[mid].compareTo(value) == 0) {
+            if (array[mid] == value) {
                 return mid;
-            } else if (array[mid].compareTo(value) < 0) {
+            } else if (array[mid] < value) {
                 return binarySearch(array, mid + 1, maxLimit, value);
             }
             return binarySearch(array, minLimit, mid - 1, value);
