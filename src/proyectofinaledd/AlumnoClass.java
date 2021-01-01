@@ -8,6 +8,7 @@ package proyectofinaledd;
 /**
  *
  * @author josep
+ * @author andre
  */
 public class AlumnoClass {
 
