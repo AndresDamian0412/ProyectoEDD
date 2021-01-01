@@ -149,6 +149,40 @@ public class principal {
                     break;
                 }
                 case 4: {
+                    
+                    /*
+                    ArrayList<AlumMatRecu> materiasRecursadas = new ArrayList<>();
+                    
+                    AlumMatRecu[] aux;
+                    
+                    AlumMatRecu recursada;
+                    
+                    for(AlumnoClass arrayOriginal : alumnos){
+                        
+                        String[] Materias = arrayOriginal.getMaterias();
+                        int[] Status = arrayOriginal.getStatus();
+                        
+                        for(int i = 0; i < arrayOriginal.getMaterias().length; i++){
+                            recursada = new AlumMatRecu(Status[i], Materias[i]);
+                            materiasRecursadas.add(recursada);
+                        }
+                        
+                        aux = new AlumMatRecu[materiasRecursadas.size()];
+                        
+                        
+                    }
+                    */
+                    
+                    for(AlumnoClass arrayOriginal : alumnos){
+                        int[] Status = arrayOriginal.getStatus();
+                        String[] Materias = arrayOriginal.getMaterias();
+                        
+                        for(int i = 0; i < Status.length; i++){
+                            
+                            
+                        }
+                    }
+                    
 
                     break;
                 }
@@ -308,6 +342,38 @@ public class principal {
         }
         if (j + 1 < der) {
             OrdenaAlumnosNumC(arreglo, j + 1, der);      // ordenamos subarray derecho
+        }
+    }
+    
+    //Ordena materias recursadas usando el status de menor a mayor como referencia usando QuickSort
+     public static void OrdenaMateriasRecursadas(AlumMatRecu[] arreglo, int izq, int der) {
+        AlumMatRecu pivote = arreglo[izq]; // tomamos primer elemento como pivote
+        int i = izq;         // i realiza la búsqueda de izquierda a derecha
+        int j = der;         // j realiza la búsqueda de derecha a izquierda
+        AlumMatRecu aux;
+
+        while (i < j) {                          // mientras no se crucen las búsquedas                                   
+            while (arreglo[i].getStatus()<= pivote.getStatus()&& i < j) {
+                i++; // busca elemento mayor que pivote
+            }
+            while (arreglo[j].getStatus()> pivote.getStatus()) {
+                j--;           // busca elemento menor que pivote
+            }
+            if (i < j) {                        // si no se han cruzado                      
+                aux = arreglo[i];                      // los intercambia
+                arreglo[i] = arreglo[j];
+                arreglo[j] = aux;
+            }
+        }
+
+        arreglo[izq] = arreglo[j];      // se coloca el pivote en su lugar de forma que tendremos                                    
+        arreglo[j] = pivote;      // los menores a su izquierda y los mayores a su derecha
+
+        if (izq < j - 1) {
+            OrdenaMateriasRecursadas(arreglo, izq, j - 1);          // ordenamos subarray izquierdo
+        }
+        if (j + 1 < der) {
+            OrdenaMateriasRecursadas(arreglo, j + 1, der);      // ordenamos subarray derecho
         }
     }
 
