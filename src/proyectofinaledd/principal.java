@@ -87,21 +87,6 @@ public class principal {
                 }
                 case 3: {
 
-                    /*
-                    ArrayList<AlumnoClass> aux = new ArrayList<>();
-                    
-                    for (AlumnoClass arrayOriginal : alumnos) {
-                        
-                        boolean tiene_reprobadas = false;
-                        int[] calificaciones = arrayOriginal.getCalif();
-                        int[] status = arrayOriginal.getStatus();
-                        
-                        Arrays.sort(calificaciones);
-                        Arrays.sort(status);
-                        
-                        
-                    }
-                     */
                     int posicion = 0;
                     ArrayList<AlumnoClass> aux = new ArrayList<>();
 
@@ -139,28 +124,6 @@ public class principal {
                 }
                 case 4: {
 
-                    /*
-                    ArrayList<AlumMatRecu> materiasRecursadas = new ArrayList<>();
-                    
-                    AlumMatRecu[] aux;
-                    
-                    AlumMatRecu recursada;
-                    
-                    for(AlumnoClass arrayOriginal : alumnos){
-                        
-                        String[] Materias = arrayOriginal.getMaterias();
-                        int[] Status = arrayOriginal.getStatus();
-                        
-                        for(int i = 0; i < arrayOriginal.getMaterias().length; i++){
-                            recursada = new AlumMatRecu(Status[i], Materias[i]);
-                            materiasRecursadas.add(recursada);
-                        }
-                        
-                        aux = new AlumMatRecu[materiasRecursadas.size()];
-                        
-                        
-                    }
-                     */
                     int busqueda = 3;
                     boolean tiene_recursadas = false;
                     ArrayList<AlumnoClass> alumMatRecur = new ArrayList<>();
