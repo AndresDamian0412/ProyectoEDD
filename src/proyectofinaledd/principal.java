@@ -124,7 +124,7 @@ public class principal {
                 }
                 case 4: {
 
-                    int busqueda = 3;
+                    int busqueda = 1;
                     boolean tiene_recursadas = false;
                     ArrayList<AlumnoClass> alumMatRecur = new ArrayList<>();
 
@@ -134,12 +134,13 @@ public class principal {
                         //Tomamos los arreglos de materias y status del alumno para almacenarlos en unos auxiliares que seran usados despues
                         int[] Status = arrayOriginal.getStatus();
                         String[] Materias = arrayOriginal.getMaterias();
+                        int[] Calificaciones = arrayOriginal.getCalif();
 
                         //Creamos un arreglo de objetos de las materias recursadas que sera usada despues
                         AlumMatRecu[] materiasRecursadasarray = new AlumMatRecu[arrayOriginal.getMaterias().length];
                         //En este ciclo for se almacena en el arreglo anterior creado en la posicion dicha los elementos que estan almacenados en cada array (Status y Materias)
                         for (int i = 0; i < Status.length; i++) {
-                            materiasRecursadasarray[i] = new AlumMatRecu(Status[i], Materias[i]);
+                            materiasRecursadasarray[i] = new AlumMatRecu(Status[i], Materias[i], Calificaciones[i]);
                         }
 
                         //Ordenamos por el metodo quicksort, usando como parametro el numero de Status, el array al que le almacenamos los elementos anteriores
@@ -149,12 +150,13 @@ public class principal {
                         int posicion;
                         posicion = binarySearchStatus(materiasRecursadasarray, 0, materiasRecursadasarray.length - 1, busqueda);
                         
+                        
                         String[] materiasEncontradas = null;//Se puso aqui pq no dejaba usarlo fuera del if
                         //Este if es solo para filtrar los alumnos que tienen materias recursadas, cuando encuentra al menos una se activa el boleano
-                        if (posicion >= 0) {
+                        if (posicion >= 0 && materiasRecursadasarray[posicion].getCalificacion() < 70) {
                             tiene_recursadas = true;
                             //Es el mismo procedimiento que el que se usa en el case 2 para agregar y eliminar elementos.
-                            while (posicion != -1) {
+                            while (posicion != -1 && materiasRecursadasarray[posicion].getCalificacion() < 70) {
                                 encontrados.add(materiasRecursadasarray[posicion]);
                                 materiasRecursadasarray = eliminaMateria(materiasRecursadasarray, posicion);
                                 posicion = binarySearchStatus(materiasRecursadasarray, 0, materiasRecursadasarray.length - 1, busqueda);

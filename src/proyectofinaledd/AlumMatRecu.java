@@ -12,10 +12,12 @@ package proyectofinaledd;
 public class AlumMatRecu {
     int Status;
     String Materia;
+    int Calificacion;
 
-    public AlumMatRecu(int Status, String Materia) {
+    public AlumMatRecu(int Status, String Materia, int Calificacion) {
         this.Status = Status;
         this.Materia = Materia;
+        this.Calificacion = Calificacion;
     }
 
     public int getStatus() {
@@ -33,6 +35,16 @@ public class AlumMatRecu {
     public void setMateria(String Materia) {
         this.Materia = Materia;
     }
+
+    public int getCalificacion() {
+        return Calificacion;
+    }
+
+    public void setCalificacion(int Calificacion) {
+        this.Calificacion = Calificacion;
+    }
+
+    
     
     
 }
