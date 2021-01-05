@@ -13,6 +13,7 @@ public class AlumMatRecu {
     int Status;
     String Materia;
     int Calificacion;
+    String Carrera;
 
     public AlumMatRecu(int Status, String Materia, int Calificacion) {
         this.Status = Status;
@@ -20,6 +21,21 @@ public class AlumMatRecu {
         this.Calificacion = Calificacion;
     }
 
+    public AlumMatRecu(int Status, String Materia, int Calificacion, String Carrera) {
+        this.Status = Status;
+        this.Materia = Materia;
+        this.Calificacion = Calificacion;
+        this.Carrera = Carrera;
+    }
+
+    public String getCarrera() {
+        return Carrera;
+    }
+
+    public void setCarrera(String Carrera) {
+        this.Carrera = Carrera;
+    }
+    
     public int getStatus() {
         return Status;
     }

@@ -46,6 +46,17 @@ public class AlumnoClass {
         this.MateriasRecursadas = MateriasRecursadas;
     }
 
+    public AlumnoClass(int NoControl, String Nombres, String ApPat, String ApMat, String Carrera, String[] MateriasRecursadas) {
+        this.NoControl = NoControl;
+        this.Nombres = Nombres;
+        this.ApPat = ApPat;
+        this.ApMat = ApMat;
+        this.Carrera = Carrera;
+        this.MateriasRecursadas = MateriasRecursadas;
+    }
+    
+    
+
     public String[] getMateriasRecursadas() {
         return MateriasRecursadas;
     }
