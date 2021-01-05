@@ -737,7 +737,7 @@ public class principal {
         alumnos[5] = new AlumnoClass(369, "Lupe", "Hernandez", "Lopez", 3, "Alimentarias", Materias6, Calificaciones6, status6, 83, 0);
         alumnos[6] = new AlumnoClass(321, "Juan", "Ponce", "Maldonado", 9, "Industrial", Materias7, Calificaciones7, status7, 82, 0);
         alumnos[7] = new AlumnoClass(654, "Fercho", "Gimenez", "Torres", 9, "Alimentarias", Materias8, Calificaciones8, status8, 70, 2);
-        alumnos[8] = new AlumnoClass(987, "Armando", "Manzanero", "Juarez", 3, "Sistemas", Materias9, Calificaciones9, status9, 93, 0);
+        alumnos[8] = new AlumnoClass(987, "Luis", "Pérez", "Pérez", 3, "Sistemas", Materias9, Calificaciones9, status9, 93, 0);
         alumnos[9] = new AlumnoClass(159, "Panfilo", "Marquez", "Salinas", 5, "Sistemas", Materias10, Calificaciones10, status10, 88, 1);
     }
 
