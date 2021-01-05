@@ -328,11 +328,45 @@ public class principal {
                     break;
                 }
                 case 6: {
-
+                    //Primero utilizamos una copia auxiliar para evitar modificar por error el arreglo original
+                    AlumnoClass[]aux = new AlumnoClass[alumnos.length];
+                    aux = alumnos;
+                    //Se ordenan los alumnos en base a su promedio
+                    OrdenaAlumnosProm(aux,0,aux.length-1);
+                    //Se crea un arreglo que contendrá los 3 alumnos con el promedio más bajo
+                    AlumnoClass[]peorProm = new AlumnoClass[3];
+                    for (int i = 0; i < 3; i++) {
+                        peorProm[i] = aux[i];
+                    }
+                //Ahora se imprimen los alumnos
+                    System.out.println("==============ALUMNOS CON EL PEOR APROVECHAMIENTO==============");
+                for (AlumnoClass peorProm1 : peorProm) {
+                    System.out.println("NO. CONTROL: " + peorProm1.getNoControl() + "\t" + "NOMBRE: " + peorProm1.getApPat() + " "
+                            + peorProm1.getApMat() + " " + peorProm1.getNombres() + "\t" + "Carrera: "+peorProm1.getCarrera()+ "\t" + "Semestre: "
+                            +peorProm1.getSemestre()+ "\t" + "Promedio General: "+peorProm1.getPromGral());
+                }
                     break;
                 }
                 case 7: {
-
+                    //Primero utilizamos una copia auxiliar para evitar modificar por error el arreglo original
+                    AlumnoClass[]aux = new AlumnoClass[alumnos.length];
+                    aux = alumnos;
+                    //Se ordenan los alumnos en base a su promedio
+                    OrdenaAlumnosProm(aux,0,aux.length-1);
+                    //Se crea un arreglo que contendrá los 3 alumnos con el promedio más bajo
+                    AlumnoClass[]peorProm = new AlumnoClass[3];
+                    int j=aux.length-1; //este es el índice de el arreglo de peores promedios
+                    for (int i = 0; i < 3; i++) {
+                        peorProm[i] = aux[j];
+                        j--;
+                    }
+                //Ahora se imprimen los alumnos
+                System.out.println("==============ALUMNOS CON EL MEJOR APROVECHAMIENTO==============");
+                for (AlumnoClass peorProm1 : peorProm) {
+                    System.out.println("NO. CONTROL: " + peorProm1.getNoControl() + "\t" + "NOMBRE: " + peorProm1.getApPat() + " "
+                            + peorProm1.getApMat() + " " + peorProm1.getNombres() + "\t" + "Carrera: "+peorProm1.getCarrera()+ "\t" + "Semestre: "
+                            +peorProm1.getSemestre()+ "\t" + "Promedio General: "+peorProm1.getPromGral());
+                }
                     break;
                 }
                 case 8: {
@@ -479,6 +513,37 @@ public class principal {
         }
         if (j + 1 < der) {
             OrdenaAlumnosNumC(arreglo, j + 1, der);      // ordenamos subarray derecho
+        }
+    }
+    //Ordena los alumnos por numero de control mediante quicksort
+    public static void OrdenaAlumnosProm(AlumnoClass[] arreglo, int izq, int der) {
+        AlumnoClass pivote = arreglo[izq]; // tomamos primer elemento como pivote
+        int i = izq;         // i realiza la búsqueda de izquierda a derecha
+        int j = der;         // j realiza la búsqueda de derecha a izquierda
+        AlumnoClass aux;
+
+        while (i < j) {                          // mientras no se crucen las búsquedas                                   
+            while (arreglo[i].getPromGral() <= pivote.getPromGral() && i < j) {
+                i++; // busca elemento mayor que pivote
+            }
+            while (arreglo[j].getPromGral() > pivote.getPromGral()) {
+                j--;           // busca elemento menor que pivote
+            }
+            if (i < j) {                        // si no se han cruzado                      
+                aux = arreglo[i];                      // los intercambia
+                arreglo[i] = arreglo[j];
+                arreglo[j] = aux;
+            }
+        }
+
+        arreglo[izq] = arreglo[j];      // se coloca el pivote en su lugar de forma que tendremos                                    
+        arreglo[j] = pivote;      // los menores a su izquierda y los mayores a su derecha
+
+        if (izq < j - 1) {
+            OrdenaAlumnosProm(arreglo, izq, j - 1);          // ordenamos subarray izquierdo
+        }
+        if (j + 1 < der) {
+            OrdenaAlumnosProm(arreglo, j + 1, der);      // ordenamos subarray derecho
         }
     }
 
