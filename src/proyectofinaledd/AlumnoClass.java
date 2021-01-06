@@ -54,6 +54,18 @@ public class AlumnoClass {
         this.Carrera = Carrera;
         this.MateriasRecursadas = MateriasRecursadas;
     }
+
+    //Para la op 8
+    public AlumnoClass(int NoControl, String Nombres, String ApPat, String ApMat, int Semestre, String Carrera, int PromGral) {
+        this.NoControl = NoControl;
+        this.Nombres = Nombres;
+        this.ApPat = ApPat;
+        this.ApMat = ApMat;
+        this.Semestre = Semestre;
+        this.Carrera = Carrera;
+        this.PromGral = PromGral;
+    }
+    
     
     
 

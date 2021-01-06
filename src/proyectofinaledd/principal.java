@@ -86,7 +86,7 @@ public class principal {
                     break;
                 }
                 case 3: {
-                    
+
                     int busqueda = 3;
                     boolean tiene_recursadas = false;
                     ArrayList<AlumnoClass> alumMatRecur = new ArrayList<>();
@@ -142,7 +142,7 @@ public class principal {
 
                         //Si encuentra que tiene recursadas lo agrega al arrayList creado para almacenar a todos los alumnos
                         if (tiene_recursadas == true) {
-                            AlumnoClass conRecursadas = new AlumnoClass(arrayOriginal.getNoControl(), arrayOriginal.getNombres(), arrayOriginal.getApPat(), arrayOriginal.getApMat(), arrayOriginal.getCarrera() ,materiasEncontradas);
+                            AlumnoClass conRecursadas = new AlumnoClass(arrayOriginal.getNoControl(), arrayOriginal.getNombres(), arrayOriginal.getApPat(), arrayOriginal.getApMat(), arrayOriginal.getCarrera(), materiasEncontradas);
                             alumMatRecur.add(conRecursadas);
                         }
 
@@ -160,9 +160,8 @@ public class principal {
                         System.out.println("NO. CONTROL: " + aux2.getNoControl() + "\t" + "NOMBRE: " + aux2.getApPat() + " "
                                 + aux2.getApMat() + " " + aux2.getNombres() + "\t" + "CARRERA: " + aux2.getCarrera());
 
-                        
                     }
-                    
+
                     break;
                 }
                 case 4: {
@@ -329,47 +328,86 @@ public class principal {
                 }
                 case 6: {
                     //Primero utilizamos una copia auxiliar para evitar modificar por error el arreglo original
-                    AlumnoClass[]aux = new AlumnoClass[alumnos.length];
+                    AlumnoClass[] aux = new AlumnoClass[alumnos.length];
                     aux = alumnos;
                     //Se ordenan los alumnos en base a su promedio
-                    OrdenaAlumnosProm(aux,0,aux.length-1);
+                    OrdenaAlumnosProm(aux, 0, aux.length - 1);
                     //Se crea un arreglo que contendrá los 3 alumnos con el promedio más bajo
-                    AlumnoClass[]peorProm = new AlumnoClass[3];
+                    AlumnoClass[] peorProm = new AlumnoClass[3];
                     for (int i = 0; i < 3; i++) {
                         peorProm[i] = aux[i];
                     }
-                //Ahora se imprimen los alumnos
+                    //Ahora se imprimen los alumnos
                     System.out.println("==============ALUMNOS CON EL PEOR APROVECHAMIENTO==============");
-                for (AlumnoClass peorProm1 : peorProm) {
-                    System.out.println("NO. CONTROL: " + peorProm1.getNoControl() + "\t" + "NOMBRE: " + peorProm1.getApPat() + " "
-                            + peorProm1.getApMat() + " " + peorProm1.getNombres() + "\t" + "Carrera: "+peorProm1.getCarrera()+ "\t" + "Semestre: "
-                            +peorProm1.getSemestre()+ "\t" + "Promedio General: "+peorProm1.getPromGral());
-                }
+                    for (AlumnoClass peorProm1 : peorProm) {
+                        System.out.println("NO. CONTROL: " + peorProm1.getNoControl() + "\t" + "NOMBRE: " + peorProm1.getApPat() + " "
+                                + peorProm1.getApMat() + " " + peorProm1.getNombres() + "\t" + "Carrera: " + peorProm1.getCarrera() + "\t" + "Semestre: "
+                                + peorProm1.getSemestre() + "\t" + "Promedio General: " + peorProm1.getPromGral());
+                    }
                     break;
                 }
                 case 7: {
                     //Primero utilizamos una copia auxiliar para evitar modificar por error el arreglo original
-                    AlumnoClass[]aux = new AlumnoClass[alumnos.length];
+                    AlumnoClass[] aux = new AlumnoClass[alumnos.length];
                     aux = alumnos;
                     //Se ordenan los alumnos en base a su promedio
-                    OrdenaAlumnosProm(aux,0,aux.length-1);
+                    OrdenaAlumnosProm(aux, 0, aux.length - 1);
                     //Se crea un arreglo que contendrá los 3 alumnos con el promedio más bajo
-                    AlumnoClass[]peorProm = new AlumnoClass[3];
-                    int j=aux.length-1; //este es el índice de el arreglo de peores promedios
+                    AlumnoClass[] peorProm = new AlumnoClass[3];
+                    int j = aux.length - 1; //este es el índice de el arreglo de peores promedios
                     for (int i = 0; i < 3; i++) {
                         peorProm[i] = aux[j];
                         j--;
                     }
-                //Ahora se imprimen los alumnos
-                System.out.println("==============ALUMNOS CON EL MEJOR APROVECHAMIENTO==============");
-                for (AlumnoClass peorProm1 : peorProm) {
-                    System.out.println("NO. CONTROL: " + peorProm1.getNoControl() + "\t" + "NOMBRE: " + peorProm1.getApPat() + " "
-                            + peorProm1.getApMat() + " " + peorProm1.getNombres() + "\t" + "Carrera: "+peorProm1.getCarrera()+ "\t" + "Semestre: "
-                            +peorProm1.getSemestre()+ "\t" + "Promedio General: "+peorProm1.getPromGral());
-                }
+                    //Ahora se imprimen los alumnos
+                    System.out.println("==============ALUMNOS CON EL MEJOR APROVECHAMIENTO==============");
+                    for (AlumnoClass peorProm1 : peorProm) {
+                        System.out.println("NO. CONTROL: " + peorProm1.getNoControl() + "\t" + "NOMBRE: " + peorProm1.getApPat() + " "
+                                + peorProm1.getApMat() + " " + peorProm1.getNombres() + "\t" + "Carrera: " + peorProm1.getCarrera() + "\t" + "Semestre: "
+                                + peorProm1.getSemestre() + "\t" + "Promedio General: " + peorProm1.getPromGral());
+                    }
                     break;
                 }
                 case 8: {
+                    ArrayList<AlumnoClass> becados = new ArrayList<>();
+
+                    for (AlumnoClass arrayOriginal : alumnos) {
+                        int[] Status = arrayOriginal.getStatus();
+                        int PromGral = arrayOriginal.getPromGral();
+                        boolean diferentedeUno = false;
+
+                        OrdenaEnteros(Status, 0, Status.length - 1);
+
+                        if (binarySearch(Status, 0, Status.length - 1, 2) != -1) {
+                            diferentedeUno = true;
+                        }
+                        if (binarySearch(Status, 0, Status.length - 1, 3) != -1) {
+                            diferentedeUno = true;
+                        }
+
+                        if (diferentedeUno == false) {
+                            if (PromGral >= 95 && PromGral <= 100) {
+                                AlumnoClass becado = new AlumnoClass(arrayOriginal.getNoControl(), arrayOriginal.getNombres(), arrayOriginal.getApPat(), arrayOriginal.getApMat(), arrayOriginal.getSemestre(), arrayOriginal.getCarrera(), arrayOriginal.getPromGral());
+                                becados.add(becado);
+                            }
+                        }
+                    }
+
+                    AlumnoClass[] aux = new AlumnoClass[becados.size()];
+                    for (int i = 0; i < becados.size(); i++) {
+                        aux[i] = becados.get(i);
+                    }
+
+                    //OrdenaAlumnosProm(aux, 0, aux.length - 1);
+
+                    System.out.println("==============ALUMNOS CANDIDATOS A BECA==============");
+                    for (AlumnoClass alumBecados : aux) {
+                        System.out.println("NO. CONTROL: " + alumBecados.getNoControl() + "\t"
+                                + "NOMBRE: " + alumBecados.getApPat() + alumBecados.getApMat()
+                                + alumBecados.getNombres() + "\t" + "CARRERA: " + alumBecados.getCarrera()
+                                + "\t" + "SEMESTRE: " + alumBecados.getSemestre() + "\t"
+                                + "PROMEDIO GRAL.: " + alumBecados.getPromGral());
+                    }
 
                     break;
                 }
@@ -419,18 +457,18 @@ public class principal {
     }
 
     //QuickSort con cadenas
-    public static void OrdenaCadenas(String[] arreglo, int izq, int der) {
+    public static void OrdenaEnteros(int[] arreglo, int izq, int der) {
 
-        String pivote = arreglo[izq]; // tomamos primer elemento como pivote
+        int pivote = arreglo[izq]; // tomamos primer elemento como pivote
         int i = izq;         // i realiza la búsqueda de izquierda a derecha
         int j = der;         // j realiza la búsqueda de derecha a izquierda
-        String aux;
+        int aux;
 
         while (i < j) {                          // mientras no se crucen las búsquedas                                   
-            while (arreglo[i].compareTo(pivote) <= 0 && i < j) {
+            while (arreglo[i] <= pivote && i < j) {
                 i++; // busca elemento mayor que pivote
             }
-            while (arreglo[j].compareTo(pivote) > 0) {
+            while (arreglo[j] > pivote) {
                 j--;           // busca elemento menor que pivote
             }
             if (i < j) {                        // si no se han cruzado                      
@@ -444,10 +482,10 @@ public class principal {
         arreglo[j] = pivote;      // los menores a su izquierda y los mayores a su derecha
 
         if (izq < j - 1) {
-            OrdenaCadenas(arreglo, izq, j - 1);          // ordenamos subarray izquierdo
+            OrdenaEnteros(arreglo, izq, j - 1);          // ordenamos subarray izquierdo
         }
         if (j + 1 < der) {
-            OrdenaCadenas(arreglo, j + 1, der);      // ordenamos subarray derecho
+            OrdenaEnteros(arreglo, j + 1, der);      // ordenamos subarray derecho
         }
     }
 
@@ -515,6 +553,7 @@ public class principal {
             OrdenaAlumnosNumC(arreglo, j + 1, der);      // ordenamos subarray derecho
         }
     }
+
     //Ordena los alumnos por numero de control mediante quicksort
     public static void OrdenaAlumnosProm(AlumnoClass[] arreglo, int izq, int der) {
         AlumnoClass pivote = arreglo[izq]; // tomamos primer elemento como pivote
@@ -731,10 +770,10 @@ public class principal {
 
         alumnos[0] = new AlumnoClass(123, "Mario", "Fernandez", "Aguilar", 3, "Sistemas", Materias1, Calificaciones1, status1, 75, 1);
         alumnos[1] = new AlumnoClass(456, "Pedro", "Aguilar", "Andrade", 5, "Industrial", Materias2, Calificaciones2, status2, 98, 0);
-        alumnos[2] = new AlumnoClass(789, "Iosef", "Tarasov", "Sanchez", 7, "Alimentarias", Materias3, Calificaciones3, status3, 87, 0);
+        alumnos[2] = new AlumnoClass(789, "Iosef", "Tarasov", "Sanchez", 7, "Alimentarias", Materias3, Calificaciones3, status3, 96, 0); //<--
         alumnos[3] = new AlumnoClass(147, "Axelin", "Lara", "Rodriguez", 7, "Sistemas", Materias4, Calificaciones4, status4, 65, 2);
         alumnos[4] = new AlumnoClass(258, "Andrew", "Chavez", "Damian", 1, "Industrial", Materias5, Calificaciones5, status5, 73, 1);
-        alumnos[5] = new AlumnoClass(369, "Lupe", "Hernandez", "Lopez", 3, "Alimentarias", Materias6, Calificaciones6, status6, 83, 0);
+        alumnos[5] = new AlumnoClass(369, "Lupe", "Hernandez", "Lopez", 3, "Alimentarias", Materias6, Calificaciones6, status6, 96, 0); //<--
         alumnos[6] = new AlumnoClass(321, "Juan", "Ponce", "Maldonado", 9, "Industrial", Materias7, Calificaciones7, status7, 82, 0);
         alumnos[7] = new AlumnoClass(654, "Fercho", "Gimenez", "Torres", 9, "Alimentarias", Materias8, Calificaciones8, status8, 70, 2);
         alumnos[8] = new AlumnoClass(987, "Luis", "Pérez", "Pérez", 3, "Sistemas", Materias9, Calificaciones9, status9, 93, 0);
