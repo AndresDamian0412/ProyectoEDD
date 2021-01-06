@@ -44,9 +44,9 @@ public class principal {
                     System.out.println("La lista original de alumnos ordenados por apellido es: ");
                     OrdenaAlumnosApe(alumnos, 0, (alumnos.length - 1));//ordena los objetos alumno por apellido paterno
                     //sigue mostrarlos // Ya los muestra ;) Pero falta darle forma, es temporal la muestra de datos
-                    int contador=1;
+                    int contador = 1;
                     for (AlumnoClass alumno : alumnos) {
-                        System.out.println(contador+") "+ "NOMBRE: " + alumno.getApPat() + " " + alumno.getApMat() + " " + alumno.getNombres()
+                        System.out.println(contador + ") " + "NOMBRE: " + alumno.getApPat() + " " + alumno.getApMat() + " " + alumno.getNombres()
                                 + "\t" + " NO. CONTROL: " + alumno.getNoControl() + "\t" + " CARRERA: " + alumno.getCarrera() + "\t" + " SEMESTRE: "
                                 + alumno.getSemestre() + "\t" + " PROMEDIO: " + alumno.getPromGral());
                         contador++;
@@ -79,9 +79,9 @@ public class principal {
                         aux2[i] = encontrados.get(i);
                     }
                     OrdenaAlumnosApe(aux2, 0, aux2.length - 1);
-                    int contador=1;
+                    int contador = 1;
                     for (AlumnoClass aux21 : aux2) {
-                        System.out.println(contador+") "+ "NOMBRE(S):" + aux21.getApPat() + " " + aux21.getApMat() + " " + aux21.getNombres()
+                        System.out.println(contador + ") " + "NOMBRE(S):" + aux21.getApPat() + " " + aux21.getApMat() + " " + aux21.getNombres()
                                 + "\t" + " NO. CONTROL: " + aux21.getNoControl() + "\t" + " CARRERA: " + aux21.getCarrera() + "\t" + " SEMESTRE: " + aux21.getSemestre()
                                 + "\t" + " PROMEDIO: " + aux21.getPromGral());
                         contador++;
@@ -158,10 +158,10 @@ public class principal {
                     //Ordenamos nuevamente el arreglo con los alumnos con materias recursadas tomando como parametro su numero de control
                     OrdenaAlumnosNumC(alumnosConRecursadas, 0, alumnosConRecursadas.length - 1);
                     System.out.println("========ALUMNOS QUE SE DARÁN DE BAJA POR REPROBACIÓN========");
-                    int contador=1;
+                    int contador = 1;
                     for (AlumnoClass aux2 : alumnosConRecursadas) {
                         String[] materias = aux2.getMateriasRecursadas();
-                        System.out.println(contador+") "+ "NO. CONTROL: " + aux2.getNoControl() + "\t" + "NOMBRE: " + aux2.getApPat() + " "
+                        System.out.println(contador + ") " + "NO. CONTROL: " + aux2.getNoControl() + "\t" + "NOMBRE: " + aux2.getApPat() + " "
                                 + aux2.getApMat() + " " + aux2.getNombres() + "\t" + "CARRERA: " + aux2.getCarrera());
                         contador++;
                     }
@@ -237,10 +237,10 @@ public class principal {
                     //Ordenamos nuevamente el arreglo con los alumnos con materias recursadas tomando como parametro su numero de control
                     OrdenaAlumnosNumC(alumnosConRecursadas, 0, alumnosConRecursadas.length - 1);
                     System.out.println("========ALUMNOS CON MATERIAS A RECURSAR========");
-                    int contador=1;
+                    int contador = 1;
                     for (AlumnoClass aux2 : alumnosConRecursadas) {
                         String[] materias = aux2.getMateriasRecursadas();
-                        System.out.print(contador+") "+ "NO. CONTROL: " + aux2.getNoControl() + "\t" + "NOMBRE: " + aux2.getApPat() + " "
+                        System.out.print(contador + ") " + "NO. CONTROL: " + aux2.getNoControl() + "\t" + "NOMBRE: " + aux2.getApPat() + " "
                                 + aux2.getApMat() + " " + aux2.getNombres() + "\t" + "MATERIAS A RECURSAR: ");
 
                         for (String materia : materias) {
@@ -320,10 +320,10 @@ public class principal {
                     //Ordenamos nuevamente el arreglo con los alumnos con materias recursadas tomando como parametro su numero de control
                     OrdenaAlumnosNumC(alumnosConRecursadas, 0, alumnosConRecursadas.length - 1);
                     System.out.println("========ALUMNOS CON MATERIAS A ESPECIAL========");
-                    int contador=1;
+                    int contador = 1;
                     for (AlumnoClass aux2 : alumnosConRecursadas) {
                         String[] materias = aux2.getMateriasRecursadas();
-                        System.out.print(contador+") "+ "NO. CONTROL: " + aux2.getNoControl() + "\t" + "NOMBRE: " + aux2.getApPat() + " "
+                        System.out.print(contador + ") " + "NO. CONTROL: " + aux2.getNoControl() + "\t" + "NOMBRE: " + aux2.getApPat() + " "
                                 + aux2.getApMat() + " " + aux2.getNombres() + "\t" + "MATERIAS A ESPECIAL: ");
 
                         for (String materia : materias) {
@@ -347,9 +347,9 @@ public class principal {
                     }
                     //Ahora se imprimen los alumnos
                     System.out.println("==============ALUMNOS CON EL PEOR APROVECHAMIENTO==============");
-                    int contador=1;
+                    int contador = 1;
                     for (AlumnoClass peorProm1 : peorProm) {
-                        System.out.println(contador+") "+ "NO. CONTROL: " + peorProm1.getNoControl() + "\t" + "NOMBRE: " + peorProm1.getApPat() + " "
+                        System.out.println(contador + ") " + "NO. CONTROL: " + peorProm1.getNoControl() + "\t" + "NOMBRE: " + peorProm1.getApPat() + " "
                                 + peorProm1.getApMat() + " " + peorProm1.getNombres() + "\t" + "Carrera: " + peorProm1.getCarrera() + "\t" + "Semestre: "
                                 + peorProm1.getSemestre() + "\t" + "Promedio General: " + peorProm1.getPromGral());
                         contador++;
@@ -371,9 +371,9 @@ public class principal {
                     }
                     //Ahora se imprimen los alumnos
                     System.out.println("==============ALUMNOS CON EL MEJOR APROVECHAMIENTO==============");
-                    int contador=1;
+                    int contador = 1;
                     for (AlumnoClass peorProm1 : peorProm) {
-                        System.out.println(contador+") "+ "NO. CONTROL: " + peorProm1.getNoControl() + "\t" + "NOMBRE: " + peorProm1.getApPat() + " "
+                        System.out.println(contador + ") " + "NO. CONTROL: " + peorProm1.getNoControl() + "\t" + "NOMBRE: " + peorProm1.getApPat() + " "
                                 + peorProm1.getApMat() + " " + peorProm1.getNombres() + "\t" + "Carrera: " + peorProm1.getCarrera() + "\t" + "Semestre: "
                                 + peorProm1.getSemestre() + "\t" + "Promedio General: " + peorProm1.getPromGral());
                         contador++;
@@ -405,18 +405,24 @@ public class principal {
                         }
                     }
 
-                    AlumnoClass[] aux = new AlumnoClass[becados.size()];
+                    AlumnoClass[] aux1 = new AlumnoClass[becados.size()];
                     for (int i = 0; i < becados.size(); i++) {
-                        aux[i] = becados.get(i);
+                        aux1[i] = becados.get(i);
                     }
 
-                    //OrdenaAlumnosProm(aux, 0, aux.length - 1);
+                    OrdenaAlumnosProm(aux1, 0, aux1.length - 1);
+                    AlumnoClass[] aux = new AlumnoClass[becados.size()];
+                    int j = aux1.length - 1;
+                    for (int i = 0; i < aux1.length; i++) {
+                        aux[i] = aux1[j];
+                        j--;
+                    }
 
                     System.out.println("==============ALUMNOS CANDIDATOS A BECA==============");
-                    int contador=1;
+                    int contador = 1;
                     for (AlumnoClass alumBecados : aux) {
-                        System.out.println(contador+") "+ "NO. CONTROL: " + alumBecados.getNoControl() + "\t"
-                                + "NOMBRE: " + alumBecados.getApPat()+ " " + alumBecados.getApMat()
+                        System.out.println(contador + ") " + "NO. CONTROL: " + alumBecados.getNoControl() + "\t"
+                                + "NOMBRE: " + alumBecados.getApPat() + " " + alumBecados.getApMat()
                                 + " " + alumBecados.getNombres() + "\t" + "CARRERA: " + alumBecados.getCarrera()
                                 + "\t" + "SEMESTRE: " + alumBecados.getSemestre() + "\t"
                                 + "PROMEDIO GRAL.: " + alumBecados.getPromGral());
@@ -759,7 +765,7 @@ public class principal {
         String[] Materias8 = {"Quimica", "Artes", "Biotecnología", "Aeronautica", "Musica", "Filosofía"};
         String[] Materias9 = {"Calculo", "Historia", "Fisica", "Español", "Geografia", "Artes"};
         String[] Materias10 = {"Fisica", "Calculo", "Español", "Geografia", "Musica", "Historia"};
-        
+
         int[] Calificaciones1 = {70, 85, 90, 60, 80, 70};
         int[] Calificaciones2 = {100, 100, 100, 100, 100, 90};
         int[] Calificaciones3 = {90, 80, 90, 95, 100, 70,};
@@ -770,7 +776,7 @@ public class principal {
         int[] Calificaciones8 = {70, 70, 65, 80, 65, 70};
         int[] Calificaciones9 = {100, 100, 100, 90, 90, 80};
         int[] Calificaciones10 = {100, 90, 90, 70, 80, 100};
-        
+
         int[] Calificaciones11 = {100, 100, 100, 100, 100, 100};
         int[] Calificaciones12 = {90, 90, 90, 90, 90, 95};
         int[] Calificaciones13 = {46, 88, 67, 50, 90, 98};
@@ -792,7 +798,7 @@ public class principal {
         int[] status8 = {2, 2, 3, 3, 2, 1};
         int[] status9 = {1, 1, 1, 1, 1, 2};
         int[] status10 = {2, 2, 1, 2, 3, 1};
-        
+
         int[] status11 = {1, 1, 1, 1, 1, 1};
         int[] status12 = {1, 2, 2, 1, 1, 2};
         int[] status13 = {1, 1, 1, 1, 1, 3};
@@ -803,7 +809,7 @@ public class principal {
         int[] status18 = {2, 3, 3, 1, 1, 1};
         int[] status19 = {3, 1, 1, 1, 1, 1};
         int[] status20 = {1, 1, 1, 1, 1, 2};
-        
+
         alumnos[0] = new AlumnoClass(123, "Mario", "Fernandez", "Aguilar", 3, "Sistemas", Materias1, Calificaciones1, status1, 75, 1);
         alumnos[1] = new AlumnoClass(456, "Pedro", "Aguilar", "Andrade", 5, "Industrial", Materias2, Calificaciones2, status2, 98, 0);
         alumnos[2] = new AlumnoClass(789, "Iosef", "Tarasov", "Sanchez", 7, "Alimentarias", Materias3, Calificaciones3, status3, 96, 0); //<--
@@ -814,10 +820,10 @@ public class principal {
         alumnos[7] = new AlumnoClass(654, "Fercho", "Gimenez", "Torres", 9, "Alimentarias", Materias8, Calificaciones8, status8, 70, 2);
         alumnos[8] = new AlumnoClass(987, "Luis", "Pérez", "Pérez", 3, "Sistemas", Materias9, Calificaciones9, status9, 93, 0);
         alumnos[9] = new AlumnoClass(159, "Panfilo", "Marquez", "Salinas", 5, "Sistemas", Materias10, Calificaciones10, status10, 88, 1);
-        
+
         alumnos[10] = new AlumnoClass(264, "Luis Enrique", "Martínez", "Izaguirre", 3, "Sistemas", Materias10, Calificaciones11, status11, 100, 0);
         alumnos[11] = new AlumnoClass(784, "Manuel", "Méndez", "Trejo", 3, "Alimentarias", Materias9, Calificaciones12, status12, 90, 0);
-        alumnos[12] = new AlumnoClass(879, "Elena", "Juárez", "Castillo", 5, "Industrial", Materias8, Calificaciones13, status13,73 , 1);
+        alumnos[12] = new AlumnoClass(879, "Elena", "Juárez", "Castillo", 5, "Industrial", Materias8, Calificaciones13, status13, 73, 1);
         alumnos[13] = new AlumnoClass(464, "Fernanda", "Salinas", "Reyes", 5, "Alimentarias", Materias7, Calificaciones14, status14, 87, 1);
         alumnos[14] = new AlumnoClass(254, "Luisa", "Izaguirre", "Gutiérrez", 7, "Industrial", Materias6, Calificaciones15, status15, 81, 0);
         alumnos[15] = new AlumnoClass(178, "Eliazar", "Uribe", "Bárcenas", 7, "Sistemas", Materias5, Calificaciones16, status16, 94, 0);
