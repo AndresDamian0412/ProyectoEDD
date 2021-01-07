@@ -253,84 +253,59 @@ public class principal {
                     break;
                 }
                 case 5: {
+
                     int busqueda = 2;
-                    boolean tiene_recursadas = false;
-                    ArrayList<AlumnoClass> alumMatRecur = new ArrayList<>();
-
-                    //Hacemos un ciclo for para que en cada alumno se haga lo siguiente:
+                    ArrayList<AlumnoClass> alumMatRecu = new ArrayList<>();
                     for (AlumnoClass arrayOriginal : alumnos) {
-                        ArrayList<AlumMatRecu> encontrados = new ArrayList<>();
-                        //Tomamos los arreglos de materias y status del alumno para almacenarlos en unos auxiliares que seran usados despues
                         int[] Status = arrayOriginal.getStatus();
-                        String[] Materias = arrayOriginal.getMaterias();
                         int[] Calificaciones = arrayOriginal.getCalif();
+                        boolean tiene_recursadas = false;
 
-                        //Creamos un arreglo de objetos de las materias recursadas que sera usada despues
-                        AlumMatRecu[] materiasRecursadasarray = new AlumMatRecu[arrayOriginal.getMaterias().length];
-                        //En este ciclo for se almacena en el arreglo anterior creado en la posicion dicha los elementos que estan almacenados en cada array (Status y Materias)
-                        for (int i = 0; i < Status.length; i++) {
-                            materiasRecursadasarray[i] = new AlumMatRecu(Status[i], Materias[i], Calificaciones[i]);
+                        ArrayList<AlumMatRecu> encontrados = new ArrayList<>();
+
+                        AlumMatRecu[] arregloMaterias = new AlumMatRecu[arrayOriginal.getMaterias().length];
+                        for (int i = 0; i < arregloMaterias.length; i++) {
+                            arregloMaterias[i] = new AlumMatRecu(Status[i], Calificaciones[i]);
                         }
 
-                        //Ordenamos por el metodo quicksort, usando como parametro el numero de Status, el array al que le almacenamos los elementos anteriores
-                        OrdenaMateriasRecursadas(materiasRecursadasarray, 0, materiasRecursadasarray.length - 1);
-                        //El siguiente proceso busca entre el arreglo de las materias ordenadas si existe alguna
-                        //en status de recursada, si es asi pues elimina del arreglo de materias y la agrega a una lista.
+                        OrdenaMateriasRecursadas(arregloMaterias, 0, arregloMaterias.length - 1);
+
                         int posicion;
-                        posicion = binarySearchStatus(materiasRecursadasarray, 0, materiasRecursadasarray.length - 1, busqueda);
+                        posicion = binarySearchStatus(arregloMaterias, 0, arregloMaterias.length - 1, busqueda);
 
-                        String[] materiasEncontradas = null;//Se puso aqui pq no dejaba usarlo fuera del if
-                        //Este if es solo para filtrar los alumnos que tienen materias recursadas, cuando encuentra al menos una se activa el boleano
-                        if (posicion >= 0 && materiasRecursadasarray[posicion].getCalificacion() < 70) {
-                            tiene_recursadas = true;
-                            //Es el mismo procedimiento que el que se usa en el case 2 para agregar y eliminar elementos.
-                            while (posicion != -1 && materiasRecursadasarray[posicion].getCalificacion() < 70) {
-                                encontrados.add(materiasRecursadasarray[posicion]);
-                                materiasRecursadasarray = eliminaMateria(materiasRecursadasarray, posicion);
-                                posicion = binarySearchStatus(materiasRecursadasarray, 0, materiasRecursadasarray.length - 1, busqueda);
+                        if (posicion != -1) {
+                            if (arregloMaterias[posicion].getCalificacion() < 70) {
+                                tiene_recursadas = true;
                             }
-                            //Ahora hay que vaciar los objetos en un arreglo de objetos
-                            AlumMatRecu[] aux = new AlumMatRecu[encontrados.size()];
-                            for (int i = 0; i < encontrados.size(); i++) {
-                                aux[i] = encontrados.get(i);
+                            while (posicion != -1) {
+                                encontrados.add(arregloMaterias[posicion]);
+                                arregloMaterias = eliminaMateria(arregloMaterias, posicion);
+                                posicion = binarySearchStatus(arregloMaterias, 0, arregloMaterias.length - 1, busqueda);
+                                if (posicion != -1 && arregloMaterias[posicion].getCalificacion() < 70) {
+                                    tiene_recursadas = true;
+                                }
                             }
-                            //Filtramos el arreglo anterior a uno de cadenas porque solo necesitamos las materias
-                            materiasEncontradas = new String[aux.length];
-                            for (int i = 0; i < aux.length; i++) {
-                                materiasEncontradas[i] = aux[i].getMateria();
-                            }
-
-                        } else {
-                            //Si no encuentra materias recursadas el valor del boleano no cambia
-                            tiene_recursadas = false;
                         }
 
-                        //Si encuentra que tiene recursadas lo agrega al arrayList creado para almacenar a todos los alumnos
                         if (tiene_recursadas == true) {
-                            AlumnoClass conRecursadas = new AlumnoClass(arrayOriginal.getNoControl(), arrayOriginal.getNombres(), arrayOriginal.getApPat(), arrayOriginal.getApMat(), materiasEncontradas);
-                            alumMatRecur.add(conRecursadas);
+                            AlumnoClass conReprobadas = new AlumnoClass(arrayOriginal.getNoControl(), arrayOriginal.getNombres(), arrayOriginal.getApPat(), arrayOriginal.getApMat(), arrayOriginal.getSemestre(), arrayOriginal.getCarrera(), arrayOriginal.getPromGral());
+                            alumMatRecu.add(conReprobadas);
                         }
+                    }
 
+                    AlumnoClass[] alumnosConReprobadas = new AlumnoClass[alumMatRecu.size()];
+                    for (int i = 0; i < alumMatRecu.size(); i++) {
+                        alumnosConReprobadas[i] = alumMatRecu.get(i);
                     }
-                    //Vaciamos lo que contenia el arrayList en un nuevo arreglo para poder mostrar los datos obtenidos
-                    AlumnoClass[] alumnosConRecursadas = new AlumnoClass[alumMatRecur.size()];
-                    for (int i = 0; i < alumMatRecur.size(); i++) {
-                        alumnosConRecursadas[i] = alumMatRecur.get(i);
-                    }
-                    //Ordenamos nuevamente el arreglo con los alumnos con materias recursadas tomando como parametro su numero de control
-                    OrdenaAlumnosNumC(alumnosConRecursadas, 0, alumnosConRecursadas.length - 1);
+
+                    OrdenaAlumnosNumC(alumnosConReprobadas, 0, alumnosConReprobadas.length - 1);
                     System.out.println("========ALUMNOS CON MATERIAS A ESPECIAL========");
                     int contador = 1;
-                    for (AlumnoClass aux2 : alumnosConRecursadas) {
-                        String[] materias = aux2.getMateriasRecursadas();
-                        System.out.print(contador + ") " + "NO. CONTROL: " + aux2.getNoControl() + "\t" + "NOMBRE: " + aux2.getApPat() + " "
-                                + aux2.getApMat() + " " + aux2.getNombres() + "\t" + "MATERIAS A ESPECIAL: ");
+                    for (AlumnoClass aux2 : alumnosConReprobadas) {
+                        System.out.println("#" + contador + " NO. CONTROL: " + aux2.getNoControl() + "\t" + "NOMBRE: " + aux2.getApPat() + " "
+                                + aux2.getApMat() + " " + aux2.getNombres() + "\t" + " SEMESTRE" + aux2.getSemestre() + "\t" +
+                                " CARRERA: " + aux2.getCarrera() + "\t" + " PROMEDIO GRAL.: " + aux2.getPromGral());
 
-                        for (String materia : materias) {
-                            System.out.print(materia + " ");
-                        }
-                        System.out.println("");
-                        contador++;
                     }
                     break;
                 }

@@ -27,9 +27,12 @@ public class AlumMatRecu {
         this.Calificacion = Calificacion;
         this.Carrera = Carrera;
     }
-    
-    
 
+    public AlumMatRecu(int Status, int Calificacion) {
+        this.Status = Status;
+        this.Calificacion = Calificacion;
+    }
+       
     public String getCarrera() {
         return Carrera;
     }
