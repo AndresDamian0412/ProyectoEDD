@@ -43,7 +43,6 @@ public class principal {
                 case 1: {
                     System.out.println("La lista original de alumnos ordenados por apellido es: ");
                     OrdenaAlumnosApe(alumnos, 0, (alumnos.length - 1));//ordena los objetos alumno por apellido paterno
-                    //sigue mostrarlos // Ya los muestra ;) Pero falta darle forma, es temporal la muestra de datos
                     int contador = 1;
                     for (AlumnoClass alumno : alumnos) {
                         System.out.println(contador + ") " + "NOMBRE: " + alumno.getApPat() + " " + alumno.getApMat() + " " + alumno.getNombres()
@@ -59,7 +58,7 @@ public class principal {
                     AlumnoClass[] aux = new AlumnoClass[alumnos.length];
                     aux = alumnos;
                     //Se crea un arraylist para guardar los resultados de la busqueda
-                    ArrayList<AlumnoClass> encontrados = new ArrayList<AlumnoClass>();
+                    ArrayList<AlumnoClass> encontrados = new ArrayList<>();
                     //Se ordenan los alumnos del array en base a su carrera para que la busqueda binaria funcione
                     OrdenaAlumnosCarr(aux, 0, aux.length - 1);
 
@@ -160,7 +159,6 @@ public class principal {
                     System.out.println("========ALUMNOS QUE SE DARÁN DE BAJA POR REPROBACIÓN========");
                     int contador = 1;
                     for (AlumnoClass aux2 : alumnosConRecursadas) {
-                        String[] materias = aux2.getMateriasRecursadas();
                         System.out.println(contador + ") " + "NO. CONTROL: " + aux2.getNoControl() + "\t" + "NOMBRE: " + aux2.getApPat() + " "
                                 + aux2.getApMat() + " " + aux2.getNombres() + "\t" + "CARRERA: " + aux2.getCarrera());
                         contador++;
@@ -365,10 +363,10 @@ public class principal {
 
                         OrdenaEnteros(Status, 0, Status.length - 1);
 
-                        if (binarySearch(Status, 0, Status.length - 1, 2) != -1) {
+                        if (binarySearchNumeros(Status, 0, Status.length - 1, 2) != -1) {
                             diferentedeUno = true;
                         }
-                        if (binarySearch(Status, 0, Status.length - 1, 3) != -1) {
+                        if (binarySearchNumeros(Status, 0, Status.length - 1, 3) != -1) {
                             diferentedeUno = true;
                         }
 
@@ -418,37 +416,6 @@ public class principal {
                 }
             }
         }
-    }
-
-    //Metodo de busqueda binaria con Strings
-    public static int busquedaBinariaConWhile(String[] arreglo, String busqueda) {
-
-        int izquierda = 0, derecha = arreglo.length - 1;
-
-        while (izquierda <= derecha) {
-            // Calculamos las mitades...
-            int indiceDelElementoDelMedio = (int) Math.floor((izquierda + derecha) / 2);
-            String elementoDelMedio = arreglo[indiceDelElementoDelMedio];
-
-            // Primero vamos a comparar y ver si el resultado es negativo, positivo o 0
-            int resultadoDeLaComparacion = busqueda.compareToIgnoreCase(elementoDelMedio);
-
-            // Si el resultado de la comparación es 0, significa que ambos elementos son iguales
-            // y por lo tanto quiere decir que hemos encontrado la búsqueda
-            if (resultadoDeLaComparacion == 0) {
-                return indiceDelElementoDelMedio;
-            }
-
-            // Si no, entonces vemos si está a la izquierda o derecha
-            if (resultadoDeLaComparacion < 0) {
-                derecha = indiceDelElementoDelMedio - 1;
-            } else {
-                izquierda = indiceDelElementoDelMedio + 1;
-            }
-        }
-        // Si no se rompió el ciclo ni se regresó el índice, entonces el elemento no
-        // existe
-        return -1;
     }
 
     //QuickSort con cadenas
@@ -808,21 +775,21 @@ public class principal {
         alumnos[19] = new AlumnoClass(134, "Luis Angel", "Mejía", "Rodríquez", 1, "Sistemas", Materias1, Calificaciones20, status20, 75, 0);
     }
 
-    //metodo de búsqueda binaria, **********falta acoplar a nuestro proyecto*********
-    public static int binarySearch(int[] array, int minLimit, int maxLimit, int value) {
+    //metodo de búsqueda binaria con números
+    public static int binarySearchNumeros(int[] array, int minLimit, int maxLimit, int value) {
         if (maxLimit >= 0 && array[minLimit] <= value && array[maxLimit] >= value) {
             int mid = (minLimit + maxLimit) / 2;
             if (array[mid] == value) {
                 return mid;
             } else if (array[mid] < value) {
-                return binarySearch(array, mid + 1, maxLimit, value);
+                return binarySearchNumeros(array, mid + 1, maxLimit, value);
             }
-            return binarySearch(array, minLimit, mid - 1, value);
+            return binarySearchNumeros(array, minLimit, mid - 1, value);
         }
         return -1;
     }
 
-    //metodo de búsqueda binaria, **********falta acoplar a nuestro proyecto*********
+    //metodo de búsqueda binaria de status
     public static int binarySearchStatus(AlumMatRecu[] array, int minLimit, int maxLimit, int value) {
         if (maxLimit >= 0 && array[minLimit].getStatus() <= value && array[maxLimit].getStatus() >= value) {
             int mid = (minLimit + maxLimit) / 2;
@@ -836,7 +803,7 @@ public class principal {
         return -1;
     }
 
-    //metodo de búsqueda binaria
+    //metodo de búsqueda binaria de carrera
     public static int binarySearchCarrera(AlumnoClass[] array, int minLimit, int maxLimit, String value) {
         if (maxLimit >= 0 && array[minLimit].getCarrera().compareTo(value) <= 0 && array[maxLimit].getCarrera().compareTo(value) >= 0) {
             int mid = (minLimit + maxLimit) / 2;
@@ -874,48 +841,8 @@ public class principal {
         return aux;
     }
 
-    public static void MetodoParaPruebas() {
-        //clase auxiliar para probar código
-
-        String[] arreglo = {"Chris", "Claire", "Django", "John", "Leon", "Morty", "Rick", "Saul", "Tuco", "Walter"};
-
-        String busqueda = "Chris";
-        // Ahora con la que usa el ciclo while
-        int indiceDelElementoBuscado = busquedaBinariaConWhile(arreglo, busqueda);
-        System.out.println("[Con ciclo While] -- El elemento buscado ("
-                + busqueda
-                + ") se encuentra en el index "
-                + indiceDelElementoBuscado);
-        /*
-        //===========================================================================
-         //Este espacio esta modificado debido a que no se aplicaba la busqueda binaria **AUN ESTA EN PROCESO**
-                    System.out.println("Ingrese carrera: ");
-                    String carrera = scanner.nextLine();
-                    System.out.println("========Alumnos de " + carrera + "========");
-
-                    String[] carreras = new String[alumnos.length];
-                    int in = 0;
-                    for (AlumnoClass alumno : alumnos) {
-                        carreras[in] = alumno.getCarrera();
-                        in++;
-                    }
-                    for (String Carrera : carreras) {
-                        System.out.println(Carrera);
-                    }
-
-                    //AVISO: POR ALGUNA RAZÓN LA POSICION [0] DEL ARRAY NO ES TOMADA EN CUENTA Y ES COMO SI NO HUBIERA VALOR
-                    //PERO LAS DEMAS POSICIONES SI SON CONOCIDAS. PARECE QUE SOLO ES ESE EL UNICO FALLO QUE HE ENCOTRADO
-                    //EL METODO FUNCIONA PERFECTAMENTE Y SOLO FALTA APLICARLO DE MANERA CORRECTA AL PROBLEMA
-                    //EL METODO FUE CAMBIADO DE RECURSIVO A ITERATIVO (USANDO WHILE) PARA CHECAR SI ESE ERA EL FALLO.
-                    //EL CODIGO ORIGINAL AQUI: https://parzibyte.me/blog/2018/10/31/busqueda-binaria-java-arreglos-cadenas/
-                    System.out.println("Posicion: " + Arrays.binarySearch(alumnos, carrera));
-                    System.out.println("Posicion con metodo: " + busquedaBinariaConWhile(carreras, carrera));
-         */
-    }
-
     public static void main(String[] args) {
 
-        //MetodoParaPruebas();
         //Se pide el tamaño del arreglo [Esto lo hice de forma temporal por si no habia otra manera
         //de fijar el tamaño del array de objetos]
         //System.out.println("Ingrese tamaño del arreglo: ");
