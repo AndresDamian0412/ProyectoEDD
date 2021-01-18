@@ -12,6 +12,8 @@ import java.util.Scanner;
  *
  * @author josep
  * @author andre
+ * @author angel
+ * @author axeli
  */
 public class principal {
 
@@ -85,6 +87,7 @@ public class principal {
                                 + "\t" + " PROMEDIO: " + aux21.getPromGral());
                         contador++;
                     }
+                    
                     break;
                 }
                 case 3: {
@@ -115,7 +118,6 @@ public class principal {
                         //en status de recursada, si es asi pues elimina del arreglo de materias y la agrega a una lista.
                         int posicion;
                         posicion = binarySearchStatus(materiasRecursadasarray, 0, materiasRecursadasarray.length - 1, busqueda);
-
                         String[] materiasEncontradas = null;//Se puso aqui pq no dejaba usarlo fuera del if
                         //Este if es solo para filtrar los alumnos que tienen materias recursadas, cuando encuentra al menos una se activa el boleano
                         if (posicion >= 0 && materiasRecursadasarray[posicion].getCalificacion() < 70) {
